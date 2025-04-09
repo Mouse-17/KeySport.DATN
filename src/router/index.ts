@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import YardOwnerView from '@/views/FormAddYardView.vue';
+import YardOwnerView from '@/views/chủ sân/FormAddYardView.vue';
 
 const routesadmin = [
   // admin
@@ -142,19 +142,19 @@ const routeuser = [
   {
     path: '/chusan',
     name: 'Chủ sân',
-    component: () => import('../views/AnalyticsView.vue'),
+    component: () => import('../views/chủ sân/AnalyticsView.vue'),
     meta: { hideHeaderFooter: true },
   },
   {
     path: '/themsanmoi',
     name: 'Thêm sân',
-    component: () => import('../views/FormAddYardView.vue'),
+    component: () => import('../views/chủ sân/FormAddYardView.vue'),
     meta: { hideHeaderFooter: true },
   },
   {
     path: '/lichsan',
     name: 'Lịch sân',
-    component: () => import('../views/BookingCalendarView.vue'),
+    component: () => import('../views/chủ sân/BookingCalendarView.vue'),
     meta: { hideHeaderFooter: true },
   },
   {
@@ -166,13 +166,13 @@ const routeuser = [
   {
     path: '/khyeuthich',
     name: 'Khách hàng',
-    component: () => import('../views/CustomerLoveView.vue'),
+    component: () => import('../views/chủ sân/CustomerLoveView.vue'),
     meta: { hideHeaderFooter: true },
   },
   {
     path: '/suasan',
     name: 'Chỉnh sửa thông tin sân',
-    component: () => import('../views/FormEditYardView.vue'),
+    component: () => import('../views/chủ sân/FormEditYardView.vue'),
     meta: { hideHeaderFooter: true },
   },
   // {
