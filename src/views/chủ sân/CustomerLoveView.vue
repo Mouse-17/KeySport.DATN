@@ -91,10 +91,10 @@
                 <div class="col-2">
                     <aside class="py-5">
                         <div class="d-flex align-items-center gap-3 mb-5" style="margin-left: 12px;">
-                            <div class="boss-img"><img src="../../public/img/user1.jpg" class="img-fluid" alt=""></div>
+                            <div class="boss-img"><img src="../../../public/img/user.webp" class="img-fluid" alt=""></div>
                             <div>
                                 <p class="m-0 fs-4 fw-regular my-1" style="color: var(--colortext3);">Xin chào,</p>
-                                <p class="m-0 fs-3 fw-semibold my-1" style="color: var(--colortext1);">Hân Trương</p>
+                                <p class="m-0 fs-3 fw-semibold my-1" style="color: var(--colortext1);">Shin</p>
                             </div>
                         </div>
                         <RouterLink to="/themsanmoi" class="btn-booknow my-3 mb-4" style="color: var(--white) !important;margin-left: 12px;">Thêm sân mới</RouterLink>
@@ -142,18 +142,16 @@
                                                 <p class="fs-4 text-start m-0 fw-semibold" style="color: var(--colortext1);">Người dùng</p>
                                                 <p class="fs-4 text-start m-0 fw-semibold" style="color: var(--colortext1);">Trạng thái</p>
                                                 <p class="fs-4 text-start m-0 fw-semibold" style="color: var(--colortext1);">Truy cập</p>
-                                                <p class="fs-4 text-start m-0 fw-semibold" style="color: var(--colortext1);">Danh hiệu</p>
                                                 <p class="fs-4 text-start m-0 fw-semibold" style="color: var(--colortext1);">Tùy chỉnh</p>
                                             </div>
                                             <div class="booking-item-accept" style="height: 500px;">
                                                 <div class="boss-text my-2">
                                                     <div class="d-flex align-items-center gap-3">
-                                                        <div class="boss-img"><img src="../../public/img/user1.jpg" alt=""></div>
-                                                        <p class="fs-4 text-start m-0 fw-semibold" style="color: var(--colortext1);">Hân Trương</p>
+                                                        <div class="boss-img"><img src="../../../public/img/user.webp" alt=""></div>
+                                                        <p class="fs-4 text-start m-0 fw-semibold" style="color: var(--colortext1);">Shin</p>
                                                     </div>
                                                     <p class="fs-4 text-start m-0" style="color: var(--colortext1);">Đã booking</p>
                                                     <p class="fs-4 text-start m-0" style="color: var(--colortext1);">12 lần</p>
-                                                    <p class="fs-4 text-start m-0 fw-semibold" style="color: var(--accent);">Thượng đế</p>
                                                     <div class="d-flex align-items-center gap-2">
                                                         <a href="" class="d-flex justify-content-center align-items-center btn-refuse mt-0 px-4">
                                                             <i class="bi bi-trash fs-3"></i>
@@ -162,12 +160,11 @@
                                                 </div>
                                                 <div class="boss-text my-2">
                                                     <div class="d-flex align-items-center gap-3">
-                                                        <div class="boss-img"><img src="../../public/img/user1.jpg" alt=""></div>
-                                                        <p class="fs-4 text-start m-0 fw-semibold" style="color: var(--colortext1);">Hân Trương</p>
+                                                        <div class="boss-img"><img src="../../../public/img/user.webp" alt=""></div>
+                                                        <p class="fs-4 text-start m-0 fw-semibold" style="color: var(--colortext1);">Shin</p>
                                                     </div>
                                                     <p class="fs-4 text-start m-0" style="color: var(--colortext1);">Chỉ xem</p>
                                                     <p class="fs-4 text-start m-0" style="color: var(--colortext1);">3 lần</p>
-                                                    <p class="fs-4 text-start m-0 fw-semibold" style="color: var(--primary);">Dân thường</p>
                                                     <div class="d-flex align-items-center gap-2">
                                                         <a href="" class="d-flex justify-content-center align-items-center btn-refuse mt-0 px-4">
                                                             <i class="bi bi-trash fs-3"></i>
@@ -176,12 +173,11 @@
                                                 </div>
                                                 <div class="boss-text my-2">
                                                     <div class="d-flex align-items-center gap-3">
-                                                        <div class="boss-img"><img src="../../public/img/user1.jpg" alt=""></div>
-                                                        <p class="fs-4 text-start m-0 fw-semibold" style="color: var(--colortext1);">Hân Trương</p>
+                                                        <div class="boss-img"><img src="../../../public/img/user.webp" alt=""></div>
+                                                        <p class="fs-4 text-start m-0 fw-semibold" style="color: var(--colortext1);">Shin</p>
                                                     </div>
                                                     <p class="fs-4 text-start m-0" style="color: var(--colortext1);">Chỉ xem</p>
                                                     <p class="fs-4 text-start m-0" style="color: var(--colortext1);">3 lần</p>
-                                                    <p class="fs-4 text-start m-0 fw-semibold" style="color: var(--primary);">Dân thường</p>
                                                     <div class="d-flex align-items-center gap-2">
                                                         <a href="" class="d-flex justify-content-center align-items-center btn-refuse mt-0 px-4">
                                                             <i class="bi bi-trash fs-3"></i>
@@ -190,12 +186,11 @@
                                                 </div>
                                                 <div class="boss-text my-2">
                                                     <div class="d-flex align-items-center gap-3">
-                                                        <div class="boss-img"><img src="../../public/img/user1.jpg" alt=""></div>
-                                                        <p class="fs-4 text-start m-0 fw-semibold" style="color: var(--colortext1);">Hân Trương</p>
+                                                        <div class="boss-img"><img src="../../../public/img/user.webp" alt=""></div>
+                                                        <p class="fs-4 text-start m-0 fw-semibold" style="color: var(--colortext1);">Shin</p>
                                                     </div>
                                                     <p class="fs-4 text-start m-0" style="color: var(--colortext1);">Chỉ xem</p>
                                                     <p class="fs-4 text-start m-0" style="color: var(--colortext1);">3 lần</p>
-                                                    <p class="fs-4 text-start m-0 fw-semibold" style="color: var(--primary);">Dân thường</p>
                                                     <div class="d-flex align-items-center gap-2">
                                                         <a href="" class="d-flex justify-content-center align-items-center btn-refuse mt-0 px-4">
                                                             <i class="bi bi-trash fs-3"></i>
@@ -204,12 +199,11 @@
                                                 </div>
                                                 <div class="boss-text my-2">
                                                     <div class="d-flex align-items-center gap-3">
-                                                        <div class="boss-img"><img src="../../public/img/user1.jpg" alt=""></div>
-                                                        <p class="fs-4 text-start m-0 fw-semibold" style="color: var(--colortext1);">Hân Trương</p>
+                                                        <div class="boss-img"><img src="../../../public/img/user.webp" alt=""></div>
+                                                        <p class="fs-4 text-start m-0 fw-semibold" style="color: var(--colortext1);">Shin</p>
                                                     </div>
                                                     <p class="fs-4 text-start m-0" style="color: var(--colortext1);">Chỉ xem</p>
                                                     <p class="fs-4 text-start m-0" style="color: var(--colortext1);">3 lần</p>
-                                                    <p class="fs-4 text-start m-0 fw-semibold" style="color: var(--primary);">Dân thường</p>
                                                     <div class="d-flex align-items-center gap-2">
                                                         <a href="" class="d-flex justify-content-center align-items-center btn-refuse mt-0 px-4">
                                                             <i class="bi bi-trash fs-3"></i>
@@ -218,12 +212,11 @@
                                                 </div>
                                                 <div class="boss-text my-2">
                                                     <div class="d-flex align-items-center gap-3">
-                                                        <div class="boss-img"><img src="../../public/img/user1.jpg" alt=""></div>
-                                                        <p class="fs-4 text-start m-0 fw-semibold" style="color: var(--colortext1);">Hân Trương</p>
+                                                        <div class="boss-img"><img src="../../../public/img/user.webp" alt=""></div>
+                                                        <p class="fs-4 text-start m-0 fw-semibold" style="color: var(--colortext1);">Shin</p>
                                                     </div>
                                                     <p class="fs-4 text-start m-0" style="color: var(--colortext1);">Đã booking</p>
                                                     <p class="fs-4 text-start m-0" style="color: var(--colortext1);">12 lần</p>
-                                                    <p class="fs-4 text-start m-0 fw-semibold" style="color: var(--accent);">Thượng đế</p>
                                                     <div class="d-flex align-items-center gap-2">
                                                         <a href="" class="d-flex justify-content-center align-items-center btn-refuse mt-0 px-4">
                                                             <i class="bi bi-trash fs-3"></i>
@@ -232,12 +225,11 @@
                                                 </div>
                                                 <div class="boss-text my-2">
                                                     <div class="d-flex align-items-center gap-3">
-                                                        <div class="boss-img"><img src="../../public/img/user1.jpg" alt=""></div>
-                                                        <p class="fs-4 text-start m-0 fw-semibold" style="color: var(--colortext1);">Hân Trương</p>
+                                                        <div class="boss-img"><img src="../../../public/img/user.webp" alt=""></div>
+                                                        <p class="fs-4 text-start m-0 fw-semibold" style="color: var(--colortext1);">Shin</p>
                                                     </div>
                                                     <p class="fs-4 text-start m-0" style="color: var(--colortext1);">Chỉ xem</p>
                                                     <p class="fs-4 text-start m-0" style="color: var(--colortext1);">3 lần</p>
-                                                    <p class="fs-4 text-start m-0 fw-semibold" style="color: var(--primary);">Dân thường</p>
                                                     <div class="d-flex align-items-center gap-2">
                                                         <a href="" class="d-flex justify-content-center align-items-center btn-refuse mt-0 px-4">
                                                             <i class="bi bi-trash fs-3"></i>
@@ -246,12 +238,11 @@
                                                 </div>
                                                 <div class="boss-text my-2">
                                                     <div class="d-flex align-items-center gap-3">
-                                                        <div class="boss-img"><img src="../../public/img/user1.jpg" alt=""></div>
-                                                        <p class="fs-4 text-start m-0 fw-semibold" style="color: var(--colortext1);">Hân Trương</p>
+                                                        <div class="boss-img"><img src="../../../public/img/user.webp" alt=""></div>
+                                                        <p class="fs-4 text-start m-0 fw-semibold" style="color: var(--colortext1);">Shin</p>
                                                     </div>
                                                     <p class="fs-4 text-start m-0" style="color: var(--colortext1);">Đã booking</p>
                                                     <p class="fs-4 text-start m-0" style="color: var(--colortext1);">12 lần</p>
-                                                    <p class="fs-4 text-start m-0 fw-semibold" style="color: var(--accent);">Thượng đế</p>
                                                     <div class="d-flex align-items-center gap-2">
                                                         <a href="" class="d-flex justify-content-center align-items-center btn-refuse mt-0 px-4">
                                                             <i class="bi bi-trash fs-3"></i>

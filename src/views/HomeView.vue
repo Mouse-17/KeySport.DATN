@@ -208,7 +208,7 @@ import TheWelcome from '../components/TheWelcome.vue'
                         </div>
                         <div class="yard-infor">
                             <div class="yard-infor-content">
-                                <h2 class="m-0 title-yard">Sân cầu lông Kỳ Hòa</h2>
+                                <h2 class="m-0 title-yard">Sân Pickleball Đông Sài Gòn</h2>
                                 <div class="d-flex align-items-center gap-2 pt-1 pb-2">
                                     <i class="bi bi-star-fill color-star fs-4"></i>
                                     <i class="bi bi-star-fill color-star fs-4"></i>
@@ -219,7 +219,7 @@ import TheWelcome from '../components/TheWelcome.vue'
                                 </div>
                                 <div class="d-flex align-items-center gap-2 text-location pt-3 pb-2">
                                     <i class="bi bi-geo-alt"></i>
-                                    <p class="m-0">Phường 12, Quận 10,...</p>
+                                    <p class="m-0">204A Đ. Mai Chí Thọ,Quận 2</p>
                                 </div>
                                 <div class="d-flex align-items-center gap-2 text-location">
                                     <i class="bi bi-door-open"></i>
@@ -248,7 +248,7 @@ import TheWelcome from '../components/TheWelcome.vue'
                         </div>
                         <div class="yard-infor">
                             <div class="yard-infor-content">
-                                <h2 class="m-0 title-yard">Sân cầu lông Kỳ Hòa</h2>
+                                <h2 class="m-0 title-yard">Sân Pickleball Đông Sài Gòn</h2>
                                 <div class="d-flex align-items-center gap-2 pt-1 pb-2">
                                     <i class="bi bi-star-fill color-star fs-4"></i>
                                     <i class="bi bi-star-fill color-star fs-4"></i>
@@ -259,7 +259,7 @@ import TheWelcome from '../components/TheWelcome.vue'
                                 </div>
                                 <div class="d-flex align-items-center gap-2 text-location pt-3 pb-2">
                                     <i class="bi bi-geo-alt"></i>
-                                    <p class="m-0">Phường 12, Quận 10,...</p>
+                                    <p class="m-0">204A Đ. Mai Chí Thọ,Quận 2</p>
                                 </div>
                                 <div class="d-flex align-items-center gap-2 text-location">
                                     <i class="bi bi-door-open"></i>
@@ -288,7 +288,7 @@ import TheWelcome from '../components/TheWelcome.vue'
                         </div>
                         <div class="yard-infor">
                             <div class="yard-infor-content">
-                                <h2 class="m-0 title-yard">Sân cầu lông Kỳ Hòa</h2>
+                                <h2 class="m-0 title-yard">Sân Pickleball Đông Sài Gòn</h2>
                                 <div class="d-flex align-items-center gap-2 pt-1 pb-2">
                                     <i class="bi bi-star-fill color-star fs-4"></i>
                                     <i class="bi bi-star-fill color-star fs-4"></i>
@@ -299,7 +299,7 @@ import TheWelcome from '../components/TheWelcome.vue'
                                 </div>
                                 <div class="d-flex align-items-center gap-2 text-location pt-3 pb-2">
                                     <i class="bi bi-geo-alt"></i>
-                                    <p class="m-0">Phường 12, Quận 10,...</p>
+                                    <p class="m-0">204A Đ. Mai Chí Thọ,Quận 2</p>
                                 </div>
                                 <div class="d-flex align-items-center gap-2 text-location">
                                     <i class="bi bi-door-open"></i>
@@ -328,7 +328,7 @@ import TheWelcome from '../components/TheWelcome.vue'
                         </div>
                         <div class="yard-infor">
                             <div class="yard-infor-content">
-                                <h2 class="m-0 title-yard">Sân cầu lông Kỳ Hòa</h2>
+                                <h2 class="m-0 title-yard">Sân Pickleball Đông Sài Gòn</h2>
                                 <div class="d-flex align-items-center gap-2 pt-1 pb-2">
                                     <i class="bi bi-star-fill color-star fs-4"></i>
                                     <i class="bi bi-star-fill color-star fs-4"></i>
@@ -339,7 +339,7 @@ import TheWelcome from '../components/TheWelcome.vue'
                                 </div>
                                 <div class="d-flex align-items-center gap-2 text-location pt-3 pb-2">
                                     <i class="bi bi-geo-alt"></i>
-                                    <p class="m-0">Phường 12, Quận 10,...</p>
+                                    <p class="m-0">204A Đ. Mai Chí Thọ,Quận 2</p>
                                 </div>
                                 <div class="d-flex align-items-center gap-2 text-location">
                                     <i class="bi bi-door-open"></i>
@@ -520,7 +520,7 @@ import TheWelcome from '../components/TheWelcome.vue'
                         <div class="map">
                             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.4929551446676!2d106.67072607480473!3d10.773505889375087!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752eded87204d3%3A0x6da06c380a63ab78!2zMjM4IMSQLiAzIFRow6FuZyAyLCBQaMaw4budbmcgMTIsIFF14bqtbiAxMCwgSOG7kyBDaMOtIE1pbmggNzAwMDAsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1740630108057!5m2!1svi!2s" width="100%" height="250" style="border:0; border-radius: 12px;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
-                        <p class="yardname">Sân cầu lông Kỳ Hòa</p>
+                        <p class="yardname">Sân Pickleball Đông Sài Gòn</p>
                         <div class="map-icon d-flex align-items-baseline gap-2 py-1">
                             <i class="bi bi-geo-alt"></i>
                             <p>Số 238 Đường 3 Tháng 2, Phường 12, Quận 10, Tp.HCM</p>

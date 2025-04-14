@@ -8,7 +8,7 @@ const menuItems = ref([
   { text: "Lịch sân", icon: "bi bi-list-check", link: "/lichsan" },
   { text: "Chờ phê duyệt", icon: "bi bi-hourglass-split", link: "/pheduyet" },
   { text: "Khách hàng thân thiết", icon: "bi bi-hearts", link: "/khyeuthich" },
-  { text: "Chỉnh sửa thông tin sân", icon: "bi bi-gear", link: "/suasan" },
+  { text: "Cài đặt", icon: "bi bi-gear", link: "/suasan" },
 ]);
 
 // Thêm các ref mới
@@ -180,7 +180,7 @@ const isPremiumTime = (time: string) => {
             >
               <div class="boss-img">
                 <img
-                  src="../../public/img/user1.jpg"
+                  src="../../../public/img/user.webp"
                   class="img-fluid"
                   alt=""
                 />
@@ -196,7 +196,7 @@ const isPremiumTime = (time: string) => {
                   class="m-0 fs-3 fw-semibold my-1"
                   style="color: var(--colortext1)"
                 >
-                  Hân Trương
+                  Shin
                 </p>
               </div>
             </div>

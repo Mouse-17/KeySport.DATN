@@ -81,16 +81,19 @@ const routeuser = [
     path: '/login',
     name: 'Đăng nhập',
     component: () => import('../views/LoginView.vue'),
+    meta: { hideHeaderFooter: true },
   },
   {
     path: '/quenmatkhau',
     name: 'Quên mật khẩu',
     component: () => import('../views/ForgotPasswordView.vue'),
+    meta: { hideHeaderFooter: true },
   },
   {
     path: '/dangky',
     name: 'Đăng ký',
     component: () => import('../views/RegisterView.vue'),
+    meta: { hideHeaderFooter: true },
   },
   {
     path: '/booking',
@@ -137,6 +140,12 @@ const routeuser = [
     name: 'Chi tiết booking',
     component: () => import('../views/BookingDetailView.vue'),
   },
+  {
+    path: "/booking-detail/:id",
+    name: "BookingDetail",
+    component: () => import("../views/BookingDetailView.vue"),
+    meta: { hideHeaderFooter: false }
+  },
 
   // chủ sân
   {
@@ -160,7 +169,7 @@ const routeuser = [
   {
     path: '/pheduyet',
     name: 'Chờ phê duyệt',
-    component: () => import('../views/AcceptView.vue'),
+    component: () => import('../views/chủ sân/AcceptView.vue'),
     meta: { hideHeaderFooter: true },
   },
   {
@@ -173,6 +182,12 @@ const routeuser = [
     path: '/suasan',
     name: 'Chỉnh sửa thông tin sân',
     component: () => import('../views/chủ sân/FormEditYardView.vue'),
+    meta: { hideHeaderFooter: true },
+  },
+  {
+    path: '/caidat',
+    name: 'Cài đặt',
+    component: () => import('../views/chủ sân/SettingView.vue'),
     meta: { hideHeaderFooter: true },
   },
   // {

@@ -27,7 +27,7 @@
                     <div class="col-12 col-lg-6 p-0">
                         <div class="padding-custom ps-lg-5">
                             <a href="#" class="category-bkdetail__link mt-2">SÂN CẦU LÔNG</a>
-                            <h1 class="title-section my-1" style="text-transform: none;">Sân cầu lông Kỳ Hòa</h1>
+                            <h1 class="title-section my-1" style="text-transform: none;">Sân Pickleball Đông Sài Gòn</h1>
                             <div class=" d-flex align-items-center gap-2 mt-2 mb-4">
                                 <i class="bi bi-star-fill color-star"></i>
                                 <p class="m-0 me-1 fs-3 fw-bold" style="color: var(--colortext1);">5.0</p>
@@ -104,10 +104,10 @@
                         <div class="padding-custom">
                             <h2 class="fs-1 text-start my-3">Thông tin chi tiết</h2>
                             <div>
-                                <h3 class="fs-3 fw-semibold text-start">1. Giới thiệu sân cầu lông Kỳ Hòa</h3>
+                                <h3 class="fs-3 fw-semibold text-start">1. Giới thiệu Sân Pickleball Đông Sài Gòn</h3>
                                 <ul class="mt-3">
                                     <li style="color: var(--colortext2); font-size: 1.5rem; line-height: 2.4rem; text-align: justify;">
-                                        Sân cầu lông Kỳ Hòa có quy mô 11 sân ngoài trời, nổi tiếng với không gian rộng rãi, 
+                                        Sân Pickleball Đông Sài Gòn có quy mô 11 sân ngoài trời, nổi tiếng với không gian rộng rãi, 
                                         thoáng mát, view cực đẹp. Hệ thống chiếu sáng LED hiện đại được bố trí đều trên sân, 
                                         đảm bảo đủ ánh sáng cho việc chơi Pickleball cả ban ngày lẫn ban đêm. Mặt sân chất lượng, 
                                         đạt chuẩn quốc tế, luôn được vệ sinh sạch sẽ và đảm bảo độ bám tốt. Khu vực nghỉ ngơi 
@@ -124,7 +124,7 @@
                                 </ul>
                             </div>
                             <div>
-                                <h3 class="fs-3 fw-semibold text-start">2. Giá thuê sân cầu lông Kỳ Hòa</h3>
+                                <h3 class="fs-3 fw-semibold text-start">2. Giá thuê Sân Pickleball Đông Sài Gòn</h3>
                                 <ul class="mt-3">
                                     <li style="color: var(--colortext2); font-size: 1.5rem; line-height: 2.4rem; text-align: justify;">
                                         Dao động từ 140.000đ - 290.000đ/giờ tuỳ theo giờ chơi. 
@@ -317,7 +317,7 @@
                             </div>
                             <div class="yard-infor">
                                 <div class="yard-infor-content">
-                                    <h2 class="m-0 title-yard">Sân cầu lông Kỳ Hòa</h2>
+                                    <h2 class="m-0 title-yard">Sân Pickleball Đông Sài Gòn</h2>
                                     <div class="d-flex align-items-center gap-2 pt-1 pb-2">
                                         <i class="bi bi-star-fill color-star fs-4"></i>
                                         <i class="bi bi-star-fill color-star fs-4"></i>
@@ -328,7 +328,7 @@
                                     </div>
                                     <div class="d-flex align-items-center gap-2 text-location pt-3 pb-2">
                                         <i class="bi bi-geo-alt"></i>
-                                        <p class="m-0">Phường 12, Quận 10,...</p>
+                                        <p class="m-0">204A Đ. Mai Chí Thọ,Quận 2</p>
                                     </div>
                                     <div class="d-flex align-items-center gap-2 text-location">
                                         <i class="bi bi-door-open"></i>
@@ -357,7 +357,7 @@
                             </div>
                             <div class="yard-infor">
                                 <div class="yard-infor-content">
-                                    <h2 class="m-0 title-yard">Sân cầu lông Kỳ Hòa</h2>
+                                    <h2 class="m-0 title-yard">Sân Pickleball Đông Sài Gòn</h2>
                                     <div class="d-flex align-items-center gap-2 pt-1 pb-2">
                                         <i class="bi bi-star-fill color-star fs-4"></i>
                                         <i class="bi bi-star-fill color-star fs-4"></i>
@@ -368,7 +368,7 @@
                                     </div>
                                     <div class="d-flex align-items-center gap-2 text-location pt-3 pb-2">
                                         <i class="bi bi-geo-alt"></i>
-                                        <p class="m-0">Phường 12, Quận 10,...</p>
+                                        <p class="m-0">204A Đ. Mai Chí Thọ,Quận 2</p>
                                     </div>
                                     <div class="d-flex align-items-center gap-2 text-location">
                                         <i class="bi bi-door-open"></i>
@@ -397,7 +397,7 @@
                             </div>
                             <div class="yard-infor">
                                 <div class="yard-infor-content">
-                                    <h2 class="m-0 title-yard">Sân cầu lông Kỳ Hòa</h2>
+                                    <h2 class="m-0 title-yard">Sân Pickleball Đông Sài Gòn</h2>
                                     <div class="d-flex align-items-center gap-2 pt-1 pb-2">
                                         <i class="bi bi-star-fill color-star fs-4"></i>
                                         <i class="bi bi-star-fill color-star fs-4"></i>
@@ -408,7 +408,7 @@
                                     </div>
                                     <div class="d-flex align-items-center gap-2 text-location pt-3 pb-2">
                                         <i class="bi bi-geo-alt"></i>
-                                        <p class="m-0">Phường 12, Quận 10,...</p>
+                                        <p class="m-0">204A Đ. Mai Chí Thọ,Quận 2</p>
                                     </div>
                                     <div class="d-flex align-items-center gap-2 text-location">
                                         <i class="bi bi-door-open"></i>
@@ -437,7 +437,7 @@
                             </div>
                             <div class="yard-infor">
                                 <div class="yard-infor-content">
-                                    <h2 class="m-0 title-yard">Sân cầu lông Kỳ Hòa</h2>
+                                    <h2 class="m-0 title-yard">Sân Pickleball Đông Sài Gòn</h2>
                                     <div class="d-flex align-items-center gap-2 pt-1 pb-2">
                                         <i class="bi bi-star-fill color-star fs-4"></i>
                                         <i class="bi bi-star-fill color-star fs-4"></i>
@@ -448,7 +448,7 @@
                                     </div>
                                     <div class="d-flex align-items-center gap-2 text-location pt-3 pb-2">
                                         <i class="bi bi-geo-alt"></i>
-                                        <p class="m-0">Phường 12, Quận 10,...</p>
+                                        <p class="m-0">204A Đ. Mai Chí Thọ,Quận 2</p>
                                     </div>
                                     <div class="d-flex align-items-center gap-2 text-location">
                                         <i class="bi bi-door-open"></i>

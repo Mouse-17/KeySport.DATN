@@ -5,7 +5,7 @@
                 <div class="row gx-0">
             <!-- Bên trái -->
                     <div class="col-12 col-lg-3 col-md-6 p-0 mt-2 admin-left">
-                        <img src="../../../public/img/user1.jpg" alt="" class="admin-avatar">
+                        <img src="../../../public/img/user.webp" alt="" class="admin-avatar">
                         <h5>Admin</h5>
                         <RouterLink to="/admin" class=""><i class="bi bi-palette2"></i>Bảng điều khiển</RouterLink>
                         <RouterLink to="/admin/quanlidanhmuc"><i class="bi bi-inboxes-fill"></i>Quản lý danh mục</RouterLink>

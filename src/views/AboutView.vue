@@ -1,7 +1,7 @@
 <template>
     <main>
-        <section class="bannergt">
-            <h1>VỀ CHÚNG TÔI</h1>
+        <section class="banner">
+            <img class="imgban" src="../../public/img/giới thiệu.png" alt="">
         </section>
     
         <section class="about-content">

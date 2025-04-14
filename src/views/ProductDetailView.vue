@@ -131,10 +131,10 @@ onMounted(() => {
                             <div class="padding-custom">
                                 <!-- <h2 class="fs-1 text-start my-3">Thông tin chi tiết</h2> -->
                                 <div>
-                                    <h3 class="fs-3 fw-semibold text-start">1. Giới thiệu sân cầu lông Kỳ Hòa</h3>
+                                    <h3 class="fs-3 fw-semibold text-start">1. Giới thiệu Sân Pickleball Đông Sài Gòn</h3>
                                     <ul class="mt-3">
                                         <li style="color: var(--colortext2); font-size: 1.5rem; line-height: 2.4rem; text-align: justify;">
-                                            Sân cầu lông Kỳ Hòa có quy mô 11 sân ngoài trời, nổi tiếng với không gian rộng rãi, 
+                                            Sân Pickleball Đông Sài Gòn có quy mô 11 sân ngoài trời, nổi tiếng với không gian rộng rãi, 
                                             thoáng mát, view cực đẹp. Hệ thống chiếu sáng LED hiện đại được bố trí đều trên sân, 
                                             đảm bảo đủ ánh sáng cho việc chơi Pickleball cả ban ngày lẫn ban đêm. Mặt sân chất lượng, 
                                             đạt chuẩn quốc tế, luôn được vệ sinh sạch sẽ và đảm bảo độ bám tốt. Khu vực nghỉ ngơi 
@@ -151,7 +151,7 @@ onMounted(() => {
                                     </ul>
                                 </div>
                                 <div>
-                                    <h3 class="fs-3 fw-semibold text-start">2. Giá thuê sân cầu lông Kỳ Hòa</h3>
+                                    <h3 class="fs-3 fw-semibold text-start">2. Giá thuê Sân Pickleball Đông Sài Gòn</h3>
                                     <ul class="mt-3">
                                         <li style="color: var(--colortext2); font-size: 1.5rem; line-height: 2.4rem; text-align: justify;">
                                             Dao động từ 140.000đ - 290.000đ/giờ tuỳ theo giờ chơi. 

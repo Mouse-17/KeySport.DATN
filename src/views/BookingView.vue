@@ -206,7 +206,7 @@
                                     </div>
                                     <div class="yard-infor">
                                         <div class="yard-infor-content">
-                                            <h2 class="m-0 title-yard">Sân cầu lông Kỳ Hòa</h2>
+                                            <h2 class="m-0 title-yard">Sân Pickleball Đông Sài Gòn</h2>
                                             <div class="d-flex align-items-center gap-2 pt-1 pb-2">
                                                 <i class="bi bi-star-fill color-star fs-5"></i>
                                                 <i class="bi bi-star-fill color-star fs-5"></i>
@@ -217,13 +217,13 @@
                                             </div>
                                             <div class="d-flex align-items-center gap-2 text-location pt-3 pb-2">
                                                 <i class="bi bi-geo-alt"></i>
-                                                <p class="m-0">Phường 12, Quận 10,...</p>
+                                                <p class="m-0">204A Đ. Mai Chí Thọ,Quận 2</p>
                                             </div>
                                             <div class="d-flex align-items-center gap-2 text-location">
                                                 <i class="bi bi-door-open"></i>
                                                 <p class="custom-open m-0">Mở cửa: 24/24</p>
                                             </div>
-                                            <a href="#" class="btn-booknow">Đặt ngay</a>
+                                            <router-link :to="{ name: 'BookingDetail', params: { id: 1 }}" class="btn-booknow">Đặt ngay</router-link>
                                             <!-- <hr class="line">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <div class="d-flex align-items-center gap-2">
@@ -246,7 +246,7 @@
                                     </div>
                                     <div class="yard-infor">
                                         <div class="yard-infor-content">
-                                            <h2 class="m-0 title-yard">Sân cầu lông Kỳ Hòa</h2>
+                                            <h2 class="m-0 title-yard">Sân Pickleball Đông Sài Gòn</h2>
                                             <div class="d-flex align-items-center gap-2 pt-1 pb-2">
                                                 <i class="bi bi-star-fill color-star fs-5"></i>
                                                 <i class="bi bi-star-fill color-star fs-5"></i>
@@ -257,13 +257,13 @@
                                             </div>
                                             <div class="d-flex align-items-center gap-2 text-location pt-3 pb-2">
                                                 <i class="bi bi-geo-alt"></i>
-                                                <p class="m-0">Phường 12, Quận 10,...</p>
+                                                <p class="m-0">204A Đ. Mai Chí Thọ,Quận 2</p>
                                             </div>
                                             <div class="d-flex align-items-center gap-2 text-location">
                                                 <i class="bi bi-door-open"></i>
                                                 <p class="custom-open m-0">Mở cửa: 24/24</p>
                                             </div>
-                                            <a href="#" class="btn-booknow">Đặt ngay</a>
+                                            <router-link :to="{ name: 'BookingDetail', params: { id: 1 }}" class="btn-booknow">Đặt ngay</router-link>
                                             <!-- <hr class="line">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <div class="d-flex align-items-center gap-2">
@@ -286,7 +286,7 @@
                                     </div>
                                     <div class="yard-infor">
                                         <div class="yard-infor-content">
-                                            <h2 class="m-0 title-yard">Sân cầu lông Kỳ Hòa</h2>
+                                            <h2 class="m-0 title-yard">Sân Pickleball Đông Sài Gòn</h2>
                                             <div class="d-flex align-items-center gap-2 pt-1 pb-2">
                                                 <i class="bi bi-star-fill color-star fs-5"></i>
                                                 <i class="bi bi-star-fill color-star fs-5"></i>
@@ -297,13 +297,13 @@
                                             </div>
                                             <div class="d-flex align-items-center gap-2 text-location pt-3 pb-2">
                                                 <i class="bi bi-geo-alt"></i>
-                                                <p class="m-0">Phường 12, Quận 10,...</p>
+                                                <p class="m-0">204A Đ. Mai Chí Thọ,Quận 2</p>
                                             </div>
                                             <div class="d-flex align-items-center gap-2 text-location">
                                                 <i class="bi bi-door-open"></i>
                                                 <p class="custom-open m-0">Mở cửa: 24/24</p>
                                             </div>
-                                            <a href="#" class="btn-booknow">Đặt ngay</a>
+                                            <router-link :to="{ name: 'BookingDetail', params: { id: 1 }}" class="btn-booknow">Đặt ngay</router-link>
                                             <!-- <hr class="line">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <div class="d-flex align-items-center gap-2">
@@ -326,7 +326,7 @@
                                     </div>
                                     <div class="yard-infor">
                                         <div class="yard-infor-content">
-                                            <h2 class="m-0 title-yard">Sân cầu lông Kỳ Hòa</h2>
+                                            <h2 class="m-0 title-yard">Sân Pickleball Đông Sài Gòn</h2>
                                             <div class="d-flex align-items-center gap-2 pt-1 pb-2">
                                                 <i class="bi bi-star-fill color-star fs-5"></i>
                                                 <i class="bi bi-star-fill color-star fs-5"></i>
@@ -337,13 +337,13 @@
                                             </div>
                                             <div class="d-flex align-items-center gap-2 text-location pt-3 pb-2">
                                                 <i class="bi bi-geo-alt"></i>
-                                                <p class="m-0">Phường 12, Quận 10,...</p>
+                                                <p class="m-0">204A Đ. Mai Chí Thọ,Quận 2</p>
                                             </div>
                                             <div class="d-flex align-items-center gap-2 text-location">
                                                 <i class="bi bi-door-open"></i>
                                                 <p class="custom-open m-0">Mở cửa: 24/24</p>
                                             </div>
-                                            <a href="#" class="btn-booknow">Đặt ngay</a>
+                                            <router-link :to="{ name: 'BookingDetail', params: { id: 1 }}" class="btn-booknow">Đặt ngay</router-link>
                                             <!-- <hr class="line">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <div class="d-flex align-items-center gap-2">
@@ -366,7 +366,7 @@
                                     </div>
                                     <div class="yard-infor">
                                         <div class="yard-infor-content">
-                                            <h2 class="m-0 title-yard">Sân cầu lông Kỳ Hòa</h2>
+                                            <h2 class="m-0 title-yard">Sân Pickleball Đông Sài Gòn</h2>
                                             <div class="d-flex align-items-center gap-2 pt-1 pb-2">
                                                 <i class="bi bi-star-fill color-star fs-5"></i>
                                                 <i class="bi bi-star-fill color-star fs-5"></i>
@@ -377,13 +377,13 @@
                                             </div>
                                             <div class="d-flex align-items-center gap-2 text-location pt-3 pb-2">
                                                 <i class="bi bi-geo-alt"></i>
-                                                <p class="m-0">Phường 12, Quận 10,...</p>
+                                                <p class="m-0">204A Đ. Mai Chí Thọ,Quận 2</p>
                                             </div>
                                             <div class="d-flex align-items-center gap-2 text-location">
                                                 <i class="bi bi-door-open"></i>
                                                 <p class="custom-open m-0">Mở cửa: 24/24</p>
                                             </div>
-                                            <a href="#" class="btn-booknow">Đặt ngay</a>
+                                            <router-link :to="{ name: 'BookingDetail', params: { id: 1 }}" class="btn-booknow">Đặt ngay</router-link>
                                             <!-- <hr class="line">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <div class="d-flex align-items-center gap-2">
@@ -406,7 +406,7 @@
                                     </div>
                                     <div class="yard-infor">
                                         <div class="yard-infor-content">
-                                            <h2 class="m-0 title-yard">Sân cầu lông Kỳ Hòa</h2>
+                                            <h2 class="m-0 title-yard">Sân Pickleball Đông Sài Gòn</h2>
                                             <div class="d-flex align-items-center gap-2 pt-1 pb-2">
                                                 <i class="bi bi-star-fill color-star fs-5"></i>
                                                 <i class="bi bi-star-fill color-star fs-5"></i>
@@ -417,13 +417,13 @@
                                             </div>
                                             <div class="d-flex align-items-center gap-2 text-location pt-3 pb-2">
                                                 <i class="bi bi-geo-alt"></i>
-                                                <p class="m-0">Phường 12, Quận 10,...</p>
+                                                <p class="m-0">204A Đ. Mai Chí Thọ,Quận 2</p>
                                             </div>
                                             <div class="d-flex align-items-center gap-2 text-location">
                                                 <i class="bi bi-door-open"></i>
                                                 <p class="custom-open m-0">Mở cửa: 24/24</p>
                                             </div>
-                                            <a href="#" class="btn-booknow">Đặt ngay</a>
+                                            <router-link :to="{ name: 'BookingDetail', params: { id: 1 }}" class="btn-booknow">Đặt ngay</router-link>
                                             <!-- <hr class="line">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <div class="d-flex align-items-center gap-2">
@@ -446,7 +446,7 @@
                                     </div>
                                     <div class="yard-infor">
                                         <div class="yard-infor-content">
-                                            <h2 class="m-0 title-yard">Sân cầu lông Kỳ Hòa</h2>
+                                            <h2 class="m-0 title-yard">Sân Pickleball Đông Sài Gòn</h2>
                                             <div class="d-flex align-items-center gap-2 pt-1 pb-2">
                                                 <i class="bi bi-star-fill color-star fs-5"></i>
                                                 <i class="bi bi-star-fill color-star fs-5"></i>
@@ -457,13 +457,13 @@
                                             </div>
                                             <div class="d-flex align-items-center gap-2 text-location pt-3 pb-2">
                                                 <i class="bi bi-geo-alt"></i>
-                                                <p class="m-0">Phường 12, Quận 10,...</p>
+                                                <p class="m-0">204A Đ. Mai Chí Thọ,Quận 2</p>
                                             </div>
                                             <div class="d-flex align-items-center gap-2 text-location">
                                                 <i class="bi bi-door-open"></i>
                                                 <p class="custom-open m-0">Mở cửa: 24/24</p>
                                             </div>
-                                            <a href="#" class="btn-booknow">Đặt ngay</a>
+                                            <router-link :to="{ name: 'BookingDetail', params: { id: 1 }}" class="btn-booknow">Đặt ngay</router-link>
                                             <!-- <hr class="line">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <div class="d-flex align-items-center gap-2">
@@ -486,7 +486,7 @@
                                     </div>
                                     <div class="yard-infor">
                                         <div class="yard-infor-content">
-                                            <h2 class="m-0 title-yard">Sân cầu lông Kỳ Hòa</h2>
+                                            <h2 class="m-0 title-yard">Sân Pickleball Đông Sài Gòn</h2>
                                             <div class="d-flex align-items-center gap-2 pt-1 pb-2">
                                                 <i class="bi bi-star-fill color-star fs-5"></i>
                                                 <i class="bi bi-star-fill color-star fs-5"></i>
@@ -497,13 +497,13 @@
                                             </div>
                                             <div class="d-flex align-items-center gap-2 text-location pt-3 pb-2">
                                                 <i class="bi bi-geo-alt"></i>
-                                                <p class="m-0">Phường 12, Quận 10,...</p>
+                                                <p class="m-0">204A Đ. Mai Chí Thọ,Quận 2</p>
                                             </div>
                                             <div class="d-flex align-items-center gap-2 text-location">
                                                 <i class="bi bi-door-open"></i>
                                                 <p class="custom-open m-0">Mở cửa: 24/24</p>
                                             </div>
-                                            <a href="#" class="btn-booknow">Đặt ngay</a>
+                                            <router-link :to="{ name: 'BookingDetail', params: { id: 1 }}" class="btn-booknow">Đặt ngay</router-link>
                                             <!-- <hr class="line">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <div class="d-flex align-items-center gap-2">
@@ -526,7 +526,7 @@
                                     </div>
                                     <div class="yard-infor">
                                         <div class="yard-infor-content">
-                                            <h2 class="m-0 title-yard">Sân cầu lông Kỳ Hòa</h2>
+                                            <h2 class="m-0 title-yard">Sân Pickleball Đông Sài Gòn</h2>
                                             <div class="d-flex align-items-center gap-2 pt-1 pb-2">
                                                 <i class="bi bi-star-fill color-star fs-5"></i>
                                                 <i class="bi bi-star-fill color-star fs-5"></i>
@@ -537,13 +537,13 @@
                                             </div>
                                             <div class="d-flex align-items-center gap-2 text-location pt-3 pb-2">
                                                 <i class="bi bi-geo-alt"></i>
-                                                <p class="m-0">Phường 12, Quận 10,...</p>
+                                                <p class="m-0">204A Đ. Mai Chí Thọ,Quận 2</p>
                                             </div>
                                             <div class="d-flex align-items-center gap-2 text-location">
                                                 <i class="bi bi-door-open"></i>
                                                 <p class="custom-open m-0">Mở cửa: 24/24</p>
                                             </div>
-                                            <a href="#" class="btn-booknow">Đặt ngay</a>
+                                            <router-link :to="{ name: 'BookingDetail', params: { id: 1 }}" class="btn-booknow">Đặt ngay</router-link>
                                             <!-- <hr class="line">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <div class="d-flex align-items-center gap-2">
@@ -595,7 +595,7 @@
                             </div>
                             <div class="yard-infor">
                                 <div class="yard-infor-content">
-                                    <h2 class="m-0 title-yard">Sân cầu lông Kỳ Hòa</h2>
+                                    <h2 class="m-0 title-yard">Sân Pickleball Đông Sài Gòn</h2>
                                     <div class="d-flex align-items-center gap-2 pt-1 pb-2">
                                         <i class="bi bi-star-fill color-star fs-4"></i>
                                         <i class="bi bi-star-fill color-star fs-4"></i>
@@ -606,13 +606,13 @@
                                     </div>
                                     <div class="d-flex align-items-center gap-2 text-location pt-3 pb-2">
                                         <i class="bi bi-geo-alt"></i>
-                                        <p class="m-0">Phường 12, Quận 10,...</p>
+                                        <p class="m-0">204A Đ. Mai Chí Thọ,Quận 2</p>
                                     </div>
                                     <div class="d-flex align-items-center gap-2 text-location">
                                         <i class="bi bi-door-open"></i>
                                         <p class="custom-open m-0">Mở cửa: 24/24</p>
                                     </div>
-                                    <a href="#" class="btn-booknow">Đặt ngay</a>
+                                    <router-link :to="{ name: 'BookingDetail', params: { id: 1 }}" class="btn-booknow">Đặt ngay</router-link>
                                     <!-- <hr class="line">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="d-flex align-items-center gap-2">
@@ -635,7 +635,7 @@
                             </div>
                             <div class="yard-infor">
                                 <div class="yard-infor-content">
-                                    <h2 class="m-0 title-yard">Sân cầu lông Kỳ Hòa</h2>
+                                    <h2 class="m-0 title-yard">Sân Pickleball Đông Sài Gòn</h2>
                                     <div class="d-flex align-items-center gap-2 pt-1 pb-2">
                                         <i class="bi bi-star-fill color-star fs-4"></i>
                                         <i class="bi bi-star-fill color-star fs-4"></i>
@@ -646,13 +646,13 @@
                                     </div>
                                     <div class="d-flex align-items-center gap-2 text-location pt-3 pb-2">
                                         <i class="bi bi-geo-alt"></i>
-                                        <p class="m-0">Phường 12, Quận 10,...</p>
+                                        <p class="m-0">204A Đ. Mai Chí Thọ,Quận 2</p>
                                     </div>
                                     <div class="d-flex align-items-center gap-2 text-location">
                                         <i class="bi bi-door-open"></i>
                                         <p class="custom-open m-0">Mở cửa: 24/24</p>
                                     </div>
-                                    <a href="#" class="btn-booknow">Đặt ngay</a>
+                                    <router-link :to="{ name: 'BookingDetail', params: { id: 1 }}" class="btn-booknow">Đặt ngay</router-link>
                                     <!-- <hr class="line">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="d-flex align-items-center gap-2">
@@ -675,7 +675,7 @@
                             </div>
                             <div class="yard-infor">
                                 <div class="yard-infor-content">
-                                    <h2 class="m-0 title-yard">Sân cầu lông Kỳ Hòa</h2>
+                                    <h2 class="m-0 title-yard">Sân Pickleball Đông Sài Gòn</h2>
                                     <div class="d-flex align-items-center gap-2 pt-1 pb-2">
                                         <i class="bi bi-star-fill color-star fs-4"></i>
                                         <i class="bi bi-star-fill color-star fs-4"></i>
@@ -686,13 +686,13 @@
                                     </div>
                                     <div class="d-flex align-items-center gap-2 text-location pt-3 pb-2">
                                         <i class="bi bi-geo-alt"></i>
-                                        <p class="m-0">Phường 12, Quận 10,...</p>
+                                        <p class="m-0">204A Đ. Mai Chí Thọ,Quận 2</p>
                                     </div>
                                     <div class="d-flex align-items-center gap-2 text-location">
                                         <i class="bi bi-door-open"></i>
                                         <p class="custom-open m-0">Mở cửa: 24/24</p>
                                     </div>
-                                    <a href="#" class="btn-booknow">Đặt ngay</a>
+                                    <router-link :to="{ name: 'BookingDetail', params: { id: 1 }}" class="btn-booknow">Đặt ngay</router-link>
                                     <!-- <hr class="line">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="d-flex align-items-center gap-2">
@@ -715,7 +715,7 @@
                             </div>
                             <div class="yard-infor">
                                 <div class="yard-infor-content">
-                                    <h2 class="m-0 title-yard">Sân cầu lông Kỳ Hòa</h2>
+                                    <h2 class="m-0 title-yard">Sân Pickleball Đông Sài Gòn</h2>
                                     <div class="d-flex align-items-center gap-2 pt-1 pb-2">
                                         <i class="bi bi-star-fill color-star fs-4"></i>
                                         <i class="bi bi-star-fill color-star fs-4"></i>
@@ -726,13 +726,13 @@
                                     </div>
                                     <div class="d-flex align-items-center gap-2 text-location pt-3 pb-2">
                                         <i class="bi bi-geo-alt"></i>
-                                        <p class="m-0">Phường 12, Quận 10,...</p>
+                                        <p class="m-0">204A Đ. Mai Chí Thọ,Quận 2</p>
                                     </div>
                                     <div class="d-flex align-items-center gap-2 text-location">
                                         <i class="bi bi-door-open"></i>
                                         <p class="custom-open m-0">Mở cửa: 24/24</p>
                                     </div>
-                                    <a href="#" class="btn-booknow">Đặt ngay</a>
+                                    <router-link :to="{ name: 'BookingDetail', params: { id: 1 }}" class="btn-booknow">Đặt ngay</router-link>
                                     <!-- <hr class="line">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="d-flex align-items-center gap-2">

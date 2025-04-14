@@ -22,10 +22,10 @@
                 <div class="col-2">
                     <aside class="py-5">
                         <div class="d-flex align-items-center gap-3 mb-5" style="margin-left: 12px;">
-                            <div class="boss-img"><img src="../../img/user1.jpg" class="img-fluid" alt=""></div>
+                            <div class="boss-img"><img src="../../../public/img/user.webp" class="img-fluid" alt=""></div>
                             <div>
                                 <p class="m-0 fs-4 fw-regular my-1" style="color: var(--colortext3);">Xin chào,</p>
-                                <p class="m-0 fs-3 fw-semibold my-1" style="color: var(--colortext1);">Hân Trương</p>
+                                <p class="m-0 fs-3 fw-semibold my-1" style="color: var(--colortext1);">Shin</p>
                             </div>
                         </div>
                         <RouterLink to="/themsanmoi" @click="selectedItem = -1" class="btn-booknow my-3 mb-4" style="color: var(--white) !important; margin-left: 12px;">Thêm sân mới</RouterLink>
@@ -54,9 +54,9 @@
                                         <div class="profile-card">
                                             <div class="text-center mt-5">
                                                 <div class="profile-img mx-auto mb-3" style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden;">
-                                                    <img src="../../../public/img/user1.jpg" class="img-fluid w-100 h-100 object-fit-cover" alt="Profile Image">
+                                                    <img src="../../../public/img/user.webp" class="img-fluid w-100 h-100 object-fit-cover" alt="Profile Image">
                                                 </div>
-                                                <h4 class="m-0 fs-3 fw-bold text-center" style="color: var(--white);">Hân Trương</h4>
+                                                <h4 class="m-0 fs-3 fw-bold text-center" style="color: var(--white);">Shin</h4>
                                                 <p class="m-0 mt-1 text-center" style="color: var(--colortext3);">Chủ sân bóng đá</p>
                                                 <RouterLink to="/suasan" class="btn-booknow d-block mx-auto mt-4">Chỉnh sửa thông tin sân</RouterLink>
                                             </div>
@@ -69,7 +69,7 @@
                                             <div class="text-start">
                                                 <div class="mb-3">
                                                     <label for="bossname" class="form-label fs-4 mt-2" style="color: var(--colortext1);">Họ và tên</label>
-                                                    <input type="text" class="inputBorder d-block" style="width: calc(98% - 3px);" id="bossname" value="Hân Trương" placeholder="Họ tên" :disabled="!isEditing">
+                                                    <input type="text" class="inputBorder d-block" style="width: calc(98% - 3px);" id="bossname" value="Shin" placeholder="Họ tên" :disabled="!isEditing">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="bossemail" class="form-label fs-4 mt-2" style="color: var(--colortext1);">Email</label>

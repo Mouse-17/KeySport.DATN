@@ -10,25 +10,37 @@
         <div class="row justify-content-center">
           <div class="col-md-6 col-lg-4">
             <div class="login-form">
-              <h2 class="text-center mb-4 fw-bold">QUÊN MẬT KHẨU</h2>
-              <form @submit.prevent="handleSubmit">
+              <div class="text-center mb-4">
+                <i class="bi bi-shield-lock display-4 text-warning mb-3"></i>
+                <h2 class="fw-bold">QUÊN MẬT KHẨU?</h2>
+                <p class="text-muted">Đừng lo lắng, chúng tôi sẽ giúp bạn khôi phục mật khẩu</p>
+              </div>
+
+              <form @submit.prevent="handleSubmit" class="fade-in">
                 <div class="mb-4">
-                  <label class="form-label fw-bold">Email</label>
-                  <div class="input-group input-group-lg">
+                  <label class="form-label fw-bold">
+                    <i class="bi bi-envelope me-2"></i>Email của bạn
+                  </label>
+                  <div class="input-group input-group-lg custom-input">
                     <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
                     <input type="email" v-model="email" class="form-control" 
                            placeholder="Vui lòng nhập email của bạn" required>
                   </div>
                 </div>
                 
-                <div v-if="codeSent" class="mb-4">
-                  <label class="form-label fw-bold">Mã OTP</label>
-                  <div class="input-group input-group-lg">
+                <div v-if="codeSent" class="mb-4 fade-in">
+                  <label class="form-label fw-bold">
+                    <i class="bi bi-key me-2"></i>Mã xác thực OTP
+                  </label>
+                  <div class="input-group input-group-lg custom-input">
                     <span class="input-group-text"><i class="bi bi-key-fill"></i></span>
                     <input type="text" v-model="otpCode" class="form-control" 
                            placeholder="Vui lòng nhập mã OTP" required>
                   </div>
-                  <small class="text-muted mt-1 d-block">Mã OTP đã được gửi đến email của bạn</small>
+                  <div class="alert alert-success mt-2 fade-in">
+                    <i class="bi bi-check-circle-fill me-2"></i>
+                    Mã OTP đã được gửi đến email của bạn
+                  </div>
                 </div>
                 
                 <div class="info-box mb-4">
@@ -36,11 +48,13 @@
                   <p class="mb-0">Chúng tôi sẽ gửi một mã OTP đến email của bạn để xác thực. Sau đó bạn có thể đặt lại mật khẩu.</p>
                 </div>
                 
-                <button v-if="!codeSent" type="button" @click="sendOTP" class="btn btn-warning w-100 py-3">
-                  <i class="bi bi-send-fill me-2"></i> GỬI MÃ OTP
+                <button v-if="!codeSent" type="button" @click="sendOTP" 
+                        class="btn btn-warning w-100 py-3 custom-button">
+                  <i class="bi bi-send-fill me-2"></i> GỬI MÃ XÁC THỰC
                 </button>
                 
-                <button v-if="codeSent" type="submit" class="btn btn-warning w-100 py-3">
+                <button v-if="codeSent" type="submit" 
+                        class="btn btn-warning w-100 py-3 custom-button">
                   <i class="bi bi-check-circle-fill me-2"></i> XÁC NHẬN VÀ ĐẶT LẠI MẬT KHẨU
                 </button>
                 
@@ -119,6 +133,7 @@ export default {
   position: relative;
   overflow: hidden;
   padding: 3rem 0;
+  min-height: 80vh;
 }
 
 .sports-background {
@@ -127,7 +142,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)), 
+  background: linear-gradient(rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.92)), 
               url('../../public/img/background.jpg');
   background-size: cover;
   background-position: center;
@@ -137,18 +152,36 @@ export default {
 .login-form {
   background-color: white;
   padding: 2.5rem;
-  border-radius: 15px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(0,0,0,0.05);
   position: relative;
   max-width: 550px;
   margin: 0 auto;
+  transition: all 0.3s ease;
+}
+
+.login-form:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
 .form-label {
   font-size: 1.1rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.8rem;
   color: #333;
+  display: flex;
+  align-items: center;
+}
+
+.custom-input {
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.custom-input:focus-within {
+  transform: translateY(-2px);
 }
 
 .input-group-text {
@@ -156,91 +189,112 @@ export default {
   color: white;
   border: none;
   font-size: 1.25rem;
-  padding: 0.6rem 1rem;
+  padding: 0.8rem 1.2rem;
+  transition: all 0.3s ease;
 }
 
 .form-control {
   border: 1px solid #ddd;
   padding: 0.8rem 1rem;
   font-size: 1.1rem;
-}
-
-.form-control::placeholder {
-  color: #aaa;
-  font-style: italic;
+  transition: all 0.3s ease;
 }
 
 .form-control:focus {
   border-color: #ff9900;
-  box-shadow: 0 0 0 0.25rem rgba(255, 153, 0, 0.25);
+  box-shadow: 0 0 0 0.25rem rgba(255, 153, 0, 0.15);
 }
 
-.btn-warning {
+.custom-button {
   background-color: #ff9900;
-  border-color: #ff9900;
+  border: none;
   font-weight: bold;
   font-size: 1.1rem;
-  padding: 0.5rem 0;
+  padding: 1rem 0;
   letter-spacing: 1px;
+  border-radius: 12px;
   transition: all 0.3s ease;
-  max-width: 100%;
-  margin: 0 auto;
-  box-sizing: border-box;
+  text-transform: uppercase;
 }
 
-.btn-warning:hover {
+.custom-button:hover {
   background-color: #e68a00;
-  border-color: #e68a00;
-  box-shadow: 0 5px 15px rgba(255, 153, 0, 0.3);
   transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 153, 0, 0.3);
 }
 
 .back-link {
   color: #ff9900;
   text-decoration: none;
   font-weight: 600;
-  display: inline-block;
-  padding: 2px 0;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
   font-size: 1.1rem;
-  z-index: 1;
-  position: relative;
+  border-radius: 8px;
   transition: all 0.3s ease;
 }
 
 .back-link:hover {
-  text-decoration: underline;
   color: #e68a00;
-  transform: translateX(-3px);
-}
-
-.banner img {
-  width: 100%;
-  height: auto;
+  background-color: rgba(255, 153, 0, 0.1);
+  transform: translateX(-5px);
 }
 
 .info-box {
   background-color: rgba(255, 153, 0, 0.1);
   border-left: 4px solid #ff9900;
-  padding: 12px 15px;
+  padding: 1rem 1.2rem;
   display: flex;
   align-items: flex-start;
-  border-radius: 4px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.info-box:hover {
+  background-color: rgba(255, 153, 0, 0.15);
+  transform: translateX(5px);
 }
 
 .info-box i {
   color: #ff9900;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   margin-top: 2px;
 }
 
 .info-box p {
   font-size: 0.95rem;
   color: #555;
+  margin-left: 10px;
+}
+
+.alert {
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (max-width: 576px) {
   .login-form {
     padding: 2rem 1.5rem;
+    margin: 0 1rem;
   }
   
   .form-label {
@@ -249,7 +303,7 @@ export default {
   
   .input-group-text {
     font-size: 1.1rem;
-    padding: 0.5rem 0.8rem;
+    padding: 0.6rem 1rem;
   }
   
   .form-control {
@@ -257,13 +311,22 @@ export default {
     padding: 0.7rem 0.9rem;
   }
   
+  .custom-button {
+    font-size: 1rem;
+    padding: 0.8rem 0;
+  }
+  
   .back-link {
     font-size: 1rem;
   }
 }
 
-.btn i {
-  font-size: 1.2rem;
-  vertical-align: middle;
+.display-4 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+}
+
+.text-warning {
+  color: #ff9900 !important;
 }
 </style> 
