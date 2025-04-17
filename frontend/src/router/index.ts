@@ -121,9 +121,9 @@ const routeuser = [
     component: () => import('../views/NewsView.vue'),
   },
   {
-    path: '/chitietsanpham/:id',
-    name: 'Chi tiết sản phẩm',
-    component: () => import('../views/ProductDetailView.vue'),
+    path: '/sanpham/:id',
+    name: 'ProductDetail',
+    component: () => import('../views/ProductDetailView.vue')
   },
   {
     path: '/giohang',
