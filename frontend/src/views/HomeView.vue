@@ -1,5 +1,51 @@
 <script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
+    import {ref, onMounted} from 'vue';
+    import type {Product} from '../stores/product';
+    import type {Yard} from '../stores/yard';
+    const product_store = ref <Product[]>([]);
+    const yard_store = ref <Yard[]>([]);
+
+    const fetchProducts = async () => {
+        try {
+            const response = await fetch('http://localhost:8000/api/san-pham-pho-bien');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const datas = await response.json();
+            if (datas.status == 'success') {
+                product_store.value = datas.data;
+            }
+        } catch (error) {
+            console.error('Lỗi khi tải sản phẩm:', error);
+        }
+    };
+
+
+    onMounted(() => {
+        fetchProducts();
+    });
+
+
+    const fetchyard = async () => {
+        try {
+            const response = await fetch('http://localhost:8000/api/san-pho-bien');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const datas = await response.json();
+            if (datas.status == 'success') {
+               yard_store.value = datas.data;
+            }
+        } catch (error) {
+            console.error('Lỗi khi tải sân:', error);
+        }
+    };
+    onMounted(() => {
+        fetchyard();
+    });
+
+
+
 </script>
 
 <template>
@@ -82,7 +128,7 @@ import TheWelcome from '../components/TheWelcome.vue'
                                     </select>
                                 </div>
                                 <div class="col-12 col-lg-3 col-md-12 m-1 m-lg-2 p-2 p-lg-0">
-                                    <input class="form-control form-date" type="date" name="" id="">
+                                    <input class="d-block w-100 form-date" type="date" name="" id="">
                                 </div>
                                 <div class="d-flex align-items-center col-12 col-lg-2 col-md-12 m-1 m-lg-2 p-2 p-lg-0">
                                     <button class="btn-find" type="submit">Tìm kiếm</button>
@@ -200,167 +246,43 @@ import TheWelcome from '../components/TheWelcome.vue'
                     <i class="bi bi-caret-right-fill"></i>
                 </RouterLink>
             </div>
-            <div class="row gx-0">
-                <div class="col-12 col-lg-3 col-md-6 p-0">
-                    <div class="yard">
-                        <div>
-                            <img src="../../public/img/s1.png" alt="" style="width: 100%;">
-                        </div>
-                        <div class="yard-infor">
-                            <div class="yard-infor-content">
-                                <h2 class="m-0 title-yard">Sân Pickleball Đông Sài Gòn</h2>
-                                <div class="d-flex align-items-center gap-2 pt-1 pb-2">
-                                    <i class="bi bi-star-fill color-star fs-4"></i>
-                                    <i class="bi bi-star-fill color-star fs-4"></i>
-                                    <i class="bi bi-star-fill color-star fs-4"></i>
-                                    <i class="bi bi-star-fill color-star fs-4"></i>
-                                    <i class="bi bi-star-fill color-star fs-4"></i>
-                                    <p class="text-rating m-0 ms-3">(5/5)</p>
-                                </div>
-                                <div class="d-flex align-items-center gap-2 text-location pt-3 pb-2">
-                                    <i class="bi bi-geo-alt"></i>
-                                    <p class="m-0">204A Đ. Mai Chí Thọ,Quận 2</p>
-                                </div>
-                                <div class="d-flex align-items-center gap-2 text-location">
-                                    <i class="bi bi-door-open"></i>
-                                    <p class="custom-open m-0">Mở cửa: 24/24</p>
-                                </div>
-                                <a href="#" class="btn-booknow">Đặt ngay</a>
-                                <!-- <hr class="line">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="d-flex align-items-center gap-2">
-                                        <i class="bi bi-heart-fill fs-3"></i>
-                                        <p class="custom-open fs-3 m-0 fw-regular">25</p>
+            <div class="row gx-0 mt-2">
+                <template v-if="yard_store.length > 0">
+                    <div v-for="yard in yard_store" :key="yard.id" class="col-12 col-lg-3 col-md-6 p-0">
+                        <div class="yard">
+                            <div>
+                                <img :src="'/public/img/san/' + yard.Hinh_anh"  :alt="yard.Ten_san" style="width: 100%;">
+                            </div>
+                            <div class="yard-infor">
+                                <div class="yard-infor-content">
+                                    <a href="#" class="m-0 title-product">{{ yard.Ten_san }}</a>
+                                    <div class="d-flex align-items-center gap-2 py-2">
+                                        <i class="bi bi-star-fill color-star fs-4"></i>
+                                        <i class="bi bi-star-fill color-star fs-4"></i>
+                                        <i class="bi bi-star-fill color-star fs-4"></i>
+                                        <i class="bi bi-star-fill color-star fs-4"></i>
+                                        <i class="bi bi-star-fill color-star fs-4"></i>
+                                        <p class="text-rating m-0 ms-3">(4/5)</p>
                                     </div>
-                                    <a href="" class="seemore">
-                                        <div class="fs-3">Chi tiết</div>
-                                        <i class="bi bi-caret-right-fill fs-3"></i>
-                                    </a>
-                                </div> -->
+                                    <div class="d-flex align-items-center gap-2 text-location pt-3 pb-2">
+                                        <i class="bi bi-geo-alt"></i>
+                                        <p class="m-0">{{ yard.Dia_chi }}</p>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-2 text-location">
+                                        <i class="bi bi-door-open"></i>
+                                        <p class="custom-open m-0">{{ yard.Trang_thai == 1 ? 'Đang mở cửa' : 'Đóng cửa' }}</p>
+                                    </div>
+                                    <a href="#" class="btn-booknow">Đặt ngay</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-12 col-lg-3 col-md-6 p-0">
-                    <div class="yard">
-                        <div>
-                            <img src="../../public/img/s1.png" alt="" style="width: 100%;">
-                        </div>
-                        <div class="yard-infor">
-                            <div class="yard-infor-content">
-                                <h2 class="m-0 title-yard">Sân Pickleball Đông Sài Gòn</h2>
-                                <div class="d-flex align-items-center gap-2 pt-1 pb-2">
-                                    <i class="bi bi-star-fill color-star fs-4"></i>
-                                    <i class="bi bi-star-fill color-star fs-4"></i>
-                                    <i class="bi bi-star-fill color-star fs-4"></i>
-                                    <i class="bi bi-star-fill color-star fs-4"></i>
-                                    <i class="bi bi-star-fill color-star fs-4"></i>
-                                    <p class="text-rating m-0 ms-3">(5/5)</p>
-                                </div>
-                                <div class="d-flex align-items-center gap-2 text-location pt-3 pb-2">
-                                    <i class="bi bi-geo-alt"></i>
-                                    <p class="m-0">204A Đ. Mai Chí Thọ,Quận 2</p>
-                                </div>
-                                <div class="d-flex align-items-center gap-2 text-location">
-                                    <i class="bi bi-door-open"></i>
-                                    <p class="custom-open m-0">Mở cửa: 24/24</p>
-                                </div>
-                                <a href="#" class="btn-booknow">Đặt ngay</a>
-                                <!-- <hr class="line">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="d-flex align-items-center gap-2">
-                                        <i class="bi bi-heart-fill fs-3"></i>
-                                        <p class="custom-open fs-3 m-0 fw-regular">25</p>
-                                    </div>
-                                    <a href="" class="seemore">
-                                        <div class="fs-3">Chi tiết</div>
-                                        <i class="bi bi-caret-right-fill fs-3"></i>
-                                    </a>
-                                </div> -->
-                            </div>
-                        </div>
+                </template>
+                <template v-else>
+                    <div class="col-12 text-center">
+                        <p>Đang tải dữ liệu...</p>
                     </div>
-                </div>
-                <div class="col-12 col-lg-3 col-md-6 p-0">
-                    <div class="yard">
-                        <div>
-                            <img src="../../public/img/s1.png" alt="" style="width: 100%;">
-                        </div>
-                        <div class="yard-infor">
-                            <div class="yard-infor-content">
-                                <h2 class="m-0 title-yard">Sân Pickleball Đông Sài Gòn</h2>
-                                <div class="d-flex align-items-center gap-2 pt-1 pb-2">
-                                    <i class="bi bi-star-fill color-star fs-4"></i>
-                                    <i class="bi bi-star-fill color-star fs-4"></i>
-                                    <i class="bi bi-star-fill color-star fs-4"></i>
-                                    <i class="bi bi-star-fill color-star fs-4"></i>
-                                    <i class="bi bi-star-fill color-star fs-4"></i>
-                                    <p class="text-rating m-0 ms-3">(5/5)</p>
-                                </div>
-                                <div class="d-flex align-items-center gap-2 text-location pt-3 pb-2">
-                                    <i class="bi bi-geo-alt"></i>
-                                    <p class="m-0">204A Đ. Mai Chí Thọ,Quận 2</p>
-                                </div>
-                                <div class="d-flex align-items-center gap-2 text-location">
-                                    <i class="bi bi-door-open"></i>
-                                    <p class="custom-open m-0">Mở cửa: 24/24</p>
-                                </div>
-                                <a href="#" class="btn-booknow">Đặt ngay</a>
-                                <!-- <hr class="line">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="d-flex align-items-center gap-2">
-                                        <i class="bi bi-heart-fill fs-3"></i>
-                                        <p class="custom-open fs-3 m-0 fw-regular">25</p>
-                                    </div>
-                                    <a href="" class="seemore">
-                                        <div class="fs-3">Chi tiết</div>
-                                        <i class="bi bi-caret-right-fill fs-3"></i>
-                                    </a>
-                                </div> -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-lg-3 col-md-6 p-0">
-                    <div class="yard">
-                        <div>
-                            <img src="../../public/img/s1.png" alt="" style="width: 100%;">
-                        </div>
-                        <div class="yard-infor">
-                            <div class="yard-infor-content">
-                                <h2 class="m-0 title-yard">Sân Pickleball Đông Sài Gòn</h2>
-                                <div class="d-flex align-items-center gap-2 pt-1 pb-2">
-                                    <i class="bi bi-star-fill color-star fs-4"></i>
-                                    <i class="bi bi-star-fill color-star fs-4"></i>
-                                    <i class="bi bi-star-fill color-star fs-4"></i>
-                                    <i class="bi bi-star-fill color-star fs-4"></i>
-                                    <i class="bi bi-star-fill color-star fs-4"></i>
-                                    <p class="text-rating m-0 ms-3">(5/5)</p>
-                                </div>
-                                <div class="d-flex align-items-center gap-2 text-location pt-3 pb-2">
-                                    <i class="bi bi-geo-alt"></i>
-                                    <p class="m-0">204A Đ. Mai Chí Thọ,Quận 2</p>
-                                </div>
-                                <div class="d-flex align-items-center gap-2 text-location">
-                                    <i class="bi bi-door-open"></i>
-                                    <p class="custom-open m-0">Mở cửa: 24/24</p>
-                                </div>
-                                <a href="#" class="btn-booknow">Đặt ngay</a>
-                                <!-- <hr class="line">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="d-flex align-items-center gap-2">
-                                        <i class="bi bi-heart-fill fs-3"></i>
-                                        <p class="custom-open fs-3 m-0 fw-regular">25</p>
-                                    </div>
-                                    <a href="" class="seemore">
-                                        <div class="fs-3">Chi tiết</div>
-                                        <i class="bi bi-caret-right-fill fs-3"></i>
-                                    </a>
-                                </div> -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </template>
             </div>
         </div>
     </section>
@@ -375,137 +297,42 @@ import TheWelcome from '../components/TheWelcome.vue'
                 </RouterLink>
             </div>
             <div class="row gx-0">
-                <div class="col-12 col-lg-3 col-md-6 p-0">
-                    <div class="product my-3">
-                        <a href="#" class="link-img-p">
-                            <img src="../../public/img/p1.png" alt="" class="img-fluid">
-                        </a>
-                        <div class="product-infor">
-                            <a href="#" class="m-0 title-product fs-3">Áo thun Unisex phối bo cổ</a>
-                            <div class="d-flex align-items-center gap-2 pt-1 pb-2">
-                                <i class="bi bi-star-fill color-star fs-5"></i>
-                                <i class="bi bi-star-fill color-star fs-5"></i>
-                                <i class="bi bi-star-fill color-star fs-5"></i>
-                                <i class="bi bi-star-fill color-star fs-5"></i>
-                                <i class="bi bi-star-fill fs-5 color-star-gray"></i>
-                                <p class="text-rating m-0 ms-3 fs-4">(4/5)</p>
+                <div v-if="product_store.length > 0" class="row gx-0">
+                    <div v-for="product in product_store" :key="product.id" class="col-12 col-lg-3 col-md-6 p-0">
+                        <div class="product my-3">
+                            <a :href="`/sanpham/${product.id}`" class="link-img-p">
+                                <img :src="'/public/img/img_sp/' + product.Anh_dai_dien" :alt="product.Ten_san_pham" class="img-fluid">
+                            </a>
+                            <div class="product-infor">
+                                <a :href="`/sanpham/${product.id}`" class="m-0 title-product fs-3">{{ product.Ten_san_pham }}</a>
+                                <div class="d-flex align-items-center gap-2 pt-1 pb-2">
+                                    <i class="bi bi-star-fill color-star fs-5"></i>
+                                    <i class="bi bi-star-fill color-star fs-5"></i>
+                                    <i class="bi bi-star-fill color-star fs-5"></i>
+                                    <i class="bi bi-star-fill color-star fs-5"></i>
+                                    <i class="bi bi-star-fill fs-5 color-star-gray"></i>
+                                    <p class="text-rating m-0 ms-3 fs-4">(4/5)</p>
+                                </div>
+                                <div class="text-location py-2">
+                                    <p class="m-0">{{ product.Mo_ta }}</p>
+                                </div>
+                                <div class="d-flex align-items-center gap-2 text-location">
+                                    <i class="bi bi-eye"></i>
+                                    <p class="custom-open m-0">Lượt xem: {{ product.view }}</p>
+                                </div>
+                                <div class="price d-flex align-items-end gap-4">
+                                    <p class="m-0">{{ product.Gia.toLocaleString('vi-VN') }}đ</p>
+                                </div>
                             </div>
-                            <div class="text-location py-2">
-                                <p class="m-0">Áo thun nam thể thao phối bo cổ được thiết kế năng động, trẻ trung</p>
+                            <div class="atc-love-box">
+                                <a href="#" class="atc-love"><i class="bi bi-heart-fill"></i></a>
+                                <a href="#" class="atc-love atc-icon"><i class="bi bi-cart-fill"></i></a>
                             </div>
-                            <div class="d-flex align-items-center gap-2 text-location">
-                                <i class="bi bi-eye"></i>
-                                <p class="custom-open m-0">Lượt xem: 230</p>
-                            </div>
-                            <div class="price d-flex align-items-end gap-4">
-                                <p class="m-0">240.000đ</p>
-                                <del>320.000đ</del>
-                            </div>
-                        </div>
-                        <div class="atc-love-box">
-                            <a href="" class="atc-love"><i class="bi bi-heart-fill"></i></a>
-                            <a href="" class="atc-love atc-icon"><i class="bi bi-cart-fill"></i></a>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-lg-3 col-md-6 p-0">
-                    <div class="product my-3">
-                        <a href="#" class="link-img-p">
-                            <img src="../../public/img/p1.png" alt="" class="img-fluid">
-                        </a>
-                        <div class="product-infor">
-                            <a href="#" class="m-0 title-product fs-3">Áo thun Unisex phối bo cổ</a>
-                            <div class="d-flex align-items-center gap-2 pt-1 pb-2">
-                                <i class="bi bi-star-fill color-star fs-5"></i>
-                                <i class="bi bi-star-fill color-star fs-5"></i>
-                                <i class="bi bi-star-fill color-star fs-5"></i>
-                                <i class="bi bi-star-fill color-star fs-5"></i>
-                                <i class="bi bi-star-fill fs-5 color-star-gray"></i>
-                                <p class="text-rating m-0 ms-3 fs-4">(4/5)</p>
-                            </div>
-                            <div class="text-location py-2">
-                                <p class="m-0">Áo thun nam thể thao phối bo cổ được thiết kế năng động, trẻ trung</p>
-                            </div>
-                            <div class="d-flex align-items-center gap-2 text-location">
-                                <i class="bi bi-eye"></i>
-                                <p class="custom-open m-0">Lượt xem: 230</p>
-                            </div>
-                            <div class="price d-flex align-items-end gap-4">
-                                <p class="m-0">240.000đ</p>
-                                <del>320.000đ</del>
-                            </div>
-                        </div>
-                        <div class="atc-love-box">
-                            <a href="" class="atc-love"><i class="bi bi-heart-fill"></i></a>
-                            <a href="" class="atc-love atc-icon"><i class="bi bi-cart-fill"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-lg-3 col-md-6 p-0">
-                    <div class="product my-3">
-                        <a href="#" class="link-img-p">
-                            <img src="../../public/img/p1.png" alt="" class="img-fluid">
-                        </a>
-                        <div class="product-infor">
-                            <a href="#" class="m-0 title-product fs-3">Áo thun Unisex phối bo cổ</a>
-                            <div class="d-flex align-items-center gap-2 pt-1 pb-2">
-                                <i class="bi bi-star-fill color-star fs-5"></i>
-                                <i class="bi bi-star-fill color-star fs-5"></i>
-                                <i class="bi bi-star-fill color-star fs-5"></i>
-                                <i class="bi bi-star-fill color-star fs-5"></i>
-                                <i class="bi bi-star-fill fs-5 color-star-gray"></i>
-                                <p class="text-rating m-0 ms-3 fs-4">(4/5)</p>
-                            </div>
-                            <div class="text-location py-2">
-                                <p class="m-0">Áo thun nam thể thao phối bo cổ được thiết kế năng động, trẻ trung</p>
-                            </div>
-                            <div class="d-flex align-items-center gap-2 text-location">
-                                <i class="bi bi-eye"></i>
-                                <p class="custom-open m-0">Lượt xem: 230</p>
-                            </div>
-                            <div class="price d-flex align-items-end gap-4">
-                                <p class="m-0">240.000đ</p>
-                                <del>320.000đ</del>
-                            </div>
-                        </div>
-                        <div class="atc-love-box">
-                            <a href="" class="atc-love"><i class="bi bi-heart-fill"></i></a>
-                            <a href="" class="atc-love atc-icon"><i class="bi bi-cart-fill"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-lg-3 col-md-6 p-0">
-                    <div class="product my-3">
-                        <a href="#" class="link-img-p">
-                            <img src="../../public/img/p1.png" alt="" class="img-fluid">
-                        </a>
-                        <div class="product-infor">
-                            <a href="#" class="m-0 title-product fs-3">Áo thun Unisex phối bo cổ</a>
-                            <div class="d-flex align-items-center gap-2 pt-1 pb-2">
-                                <i class="bi bi-star-fill color-star fs-5"></i>
-                                <i class="bi bi-star-fill color-star fs-5"></i>
-                                <i class="bi bi-star-fill color-star fs-5"></i>
-                                <i class="bi bi-star-fill color-star fs-5"></i>
-                                <i class="bi bi-star-fill fs-5 color-star-gray"></i>
-                                <p class="text-rating m-0 ms-3 fs-4">(4/5)</p>
-                            </div>
-                            <div class="text-location py-2">
-                                <p class="m-0">Áo thun nam thể thao phối bo cổ được thiết kế năng động, trẻ trung</p>
-                            </div>
-                            <div class="d-flex align-items-center gap-2 text-location">
-                                <i class="bi bi-eye"></i>
-                                <p class="custom-open m-0">Lượt xem: 230</p>
-                            </div>
-                            <div class="price d-flex align-items-end gap-4">
-                                <p class="m-0">240.000đ</p>
-                                <del>320.000đ</del>
-                            </div>
-                        </div>
-                        <div class="atc-love-box">
-                            <a href="" class="atc-love"><i class="bi bi-heart-fill"></i></a>
-                            <a href="" class="atc-love atc-icon"><i class="bi bi-cart-fill"></i></a>
-                        </div>
-                    </div>
+                <div v-else class="col-12 text-center py-5">
+                    <p>Đang tải sản phẩm...</p>
                 </div>
             </div>
         </div>
@@ -520,7 +347,7 @@ import TheWelcome from '../components/TheWelcome.vue'
                         <div class="map">
                             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.4929551446676!2d106.67072607480473!3d10.773505889375087!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752eded87204d3%3A0x6da06c380a63ab78!2zMjM4IMSQLiAzIFRow6FuZyAyLCBQaMaw4budbmcgMTIsIFF14bqtbiAxMCwgSOG7kyBDaMOtIE1pbmggNzAwMDAsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1740630108057!5m2!1svi!2s" width="100%" height="250" style="border:0; border-radius: 12px;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
-                        <p class="yardname">Sân Pickleball Đông Sài Gòn</p>
+                        <p class="yardname">Sân cầu lông Kỳ Hòa</p>
                         <div class="map-icon d-flex align-items-baseline gap-2 py-1">
                             <i class="bi bi-geo-alt"></i>
                             <p>Số 238 Đường 3 Tháng 2, Phường 12, Quận 10, Tp.HCM</p>
@@ -609,29 +436,6 @@ import TheWelcome from '../components/TheWelcome.vue'
                 </div>
                 <div class="col-12 col-lg-4">
                     <div class="newmore-scroll">
-                        <div class="newmore px-3 py-2 px-lg-3">
-                            <div class="row flex-nowrap">
-                                <div class="col-4 pe-0"><img src="../../public/img/new2.png" alt="" class="img-fluid newmore-img"></div>
-                                <div class="newmore-content col-7">                                    
-                                    <h3 class="newmore-title">Trương Vinh Hiển vô địch đơn nam giải pickleball Quảng Ngãi Open 2024</h3>
-                                    <p class="newmore-desc">
-                                        Trận chung kết nội dung đơn nam chuyên nghiệp giải OB Pickleball Open 2024 kết thúc chiều 22.12 tại Quảng Ngãi, 
-                                        Trương Vinh Hiển đã chiến thắng 2-0 (11-6, 11-0) trước tay vợt số 1 Việt Nam Lý Hoàng Nam để lên ngôi vô địch.
-                                    </p>
-                                    <div class="d-flex align-items-center gap-4 pt-2">
-                                        <div class="d-flex align-items-center gap-2 text-location pt-2">
-                                            <i class="bi bi-eye"></i>
-                                            <p class="custom-open m-0">10</p>
-                                        </div>
-                                        <div class="d-flex align-items-center gap-2 text-location pt-2">
-                                            <i class="bi bi-share"></i>
-                                            <p class="custom-open m-0">3</p>
-                                        </div>
-                                        <a href="#" class="btn-newmore">Xem thêm</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="newmore px-3 py-2 px-lg-3">
                             <div class="row flex-nowrap">
                                 <div class="col-4 pe-0"><img src="../../public/img/new2.png" alt="" class="img-fluid newmore-img"></div>

@@ -1,110 +1,131 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+    import { onMounted, ref, computed } from 'vue';
+    import { useRoute } from 'vue-router';
+    import type { Product } from '../stores/product';
 
-const descBox = ref<HTMLElement | null>(null);
-const commentBox = ref<HTMLElement | null>(null);
-const changeTab = ref<NodeListOf<Element> | null>(null);
+    const route = useRoute();
+    const product_store = ref<Product | null>(null);
+    const quantity = ref(1);
+    const activeTab = ref('description'); // 'description' or 'reviews'
 
-const handleTabClick = (event: Event, index: number) => {
-    const target = event.currentTarget as HTMLElement;
-    if (!target || !changeTab.value) return;
+    const handleTabClick = (tab: string) => {
+        activeTab.value = tab;
+    };
 
-    changeTab.value.forEach(tab => {
-        tab.classList.remove("desc-detail__seleted");
+    // Lọc màu sắc không trùng lặp
+    const uniqueColors = computed(() => {
+        if (!product_store.value?.san_pham_mau_size) return [];
+        
+        // Lấy danh sách ID_Mau không trùng lặp
+        const uniqueMauIds = [...new Set(product_store.value.san_pham_mau_size.map(item => item.ID_Mau))];
+        return uniqueMauIds;
     });
-    target.classList.add("desc-detail__seleted");
 
-    if (descBox.value && commentBox.value) {
-        if (index === 0) {
-            descBox.value.style.display = "block";
-            commentBox.value.style.display = "none";
-        } else {
-            descBox.value.style.display = "none";
-            commentBox.value.style.display = "block";
+    // Lọc kích thước không trùng lặp
+    const uniqueSizes = computed(() => {
+        if (!product_store.value?.san_pham_mau_size) return [];
+        
+        // Lấy danh sách ID_Kichthuoc không trùng lặp
+        const uniqueSizeIds = [...new Set(product_store.value.san_pham_mau_size.map(item => item.ID_Kichthuoc))];
+        return uniqueSizeIds;
+    });
+
+    const fetchProduct = async () => {
+        try {
+            const response = await fetch(`http://localhost:8000/api/sanpham/${route.params.id}`);
+            const data = await response.json();
+            if (data.status == 'success') {
+                product_store.value = data.data;
+                console.log('Sản phẩm:', product_store.value);
+                
+                // Kiểm tra cấu trúc dữ liệu mau và size
+                if (product_store.value?.san_pham_mau_size && product_store.value.san_pham_mau_size.length > 0) {
+                    console.log('Mẫu Màu Size:', product_store.value.san_pham_mau_size);
+                    product_store.value.san_pham_mau_size.forEach((item, index) => {
+                        console.log(`Item ${index}:`, item);
+                        console.log(`Màu ID:`, item.ID_Mau);
+                        console.log(`Size ID:`, item.ID_Kichthuoc);
+                        console.log(`Màu:`, item.mau);
+                        console.log(`Size:`, item.size);
+                    });
+                }
+            }
+        } catch (error) {
+            console.error('Lỗi khi tải sản phẩm:', error);
         }
-    }
-};
+    };
 
-onMounted(() => {
-    descBox.value = document.getElementById("desc-box");
-    commentBox.value = document.getElementById("comment-box");
-    changeTab.value = document.querySelectorAll(".detail-infor__desc-rating");
-
-    if (changeTab.value.length > 0 && descBox.value && commentBox.value) {
-        changeTab.value[0].classList.add("desc-detail__seleted");
-        descBox.value.style.display = "block";
-        commentBox.value.style.display = "none";
-
-        changeTab.value.forEach((element, index) => {
-            element.addEventListener("click", (event) => handleTabClick(event, index));
-        });
-    }
-});
+    onMounted(() => {
+        fetchProduct();
+    });
 </script>
 <template>
-    <main>
+    <main v-if="product_store">
         <section class="product-detail">
             <div class="container">
                 <div class="row gx-0">
                     <div class="col-12 col-lg-6 p-0">
                         <div class="px-lg-2 px-3 d-flex gap-4">
                             <div class="product-thumnail">
-                                <div class="custom-thumnail__box mb-3">
-                                    <img src="../../public/img/p1.png" alt="" class="img-fluid">
-                                </div>
-                                <div class="custom-thumnail__box mb-3">
-                                    <img src="../../public/img/p1.png" alt="" class="img-fluid">
-                                </div>
-                                <div class="custom-thumnail__box my-3">
-                                    <img src="../../public/img/p1.png" alt="" class="img-fluid">
-                                </div>
-                                <div class="custom-thumnail__box my-3">
-                                    <img src="../../public/img/p1.png" alt="" class="img-fluid">
-                                </div>
-                                <div class="custom-thumnail__box my-3">
-                                    <img src="../../public/img/p1.png" alt="" class="img-fluid">
+                                <div v-if="product_store.anh_phu" v-for="(image, index) in product_store.anh_phu" :key="index" class="custom-thumnail__box mb-3">
+                                    <img :src="'/public/img/img_sp/' + image" :alt="product_store.Ten_san_pham" class="img-fluid">
                                 </div>
                             </div>
                             <div class="flex-fill">
-                                <img src="../../public/img/p1.png" alt="" class="rounded-4">
+                                <img :src="'/public/img/img_sp/' + product_store.Anh_dai_dien" :alt="product_store.Ten_san_pham" class="rounded-4">
                             </div>
                         </div>
                     </div>
                     <div class="col-12 col-lg-6 p-0">
                         <div class="product-info px-5">
-                            <a href="#" class="category-bkdetail__link mt-2">TÊN DANH MỤC</a>
-                            <h2 class="text-start productname my-2">Áo thun nam nữ thể thao</h2>
-                            <p class="text-muted fs-4">Mã sản phẩm: SP001</p>
+                            <a href="#" class="category-bkdetail__link mt-2">{{ product_store.danh_muc?.ten_danh_muc }}</a>
+                            <h2 class="text-start productname my-2">{{ product_store.Ten_san_pham }}</h2>
+                            <p class="text-muted fs-4">Mã sản phẩm: {{ product_store.id }}</p>
                             <p class="mt-4">
-                                <del class="fs-4 me-3" style="color: var(--colortext3);">300.000đ</del> 
-                                <strong style="color:var(--accent); font-size: 1.9rem;">250.000đ</strong>
+                                <del class="fs-4 me-3" style="color: var(--colortext3);" v-if="product_store.gia_giam">{{ product_store.gia_giam.toLocaleString('vi-VN') }}đ</del> 
+                                <strong style="color:var(--accent); font-size: 1.9rem;">{{ product_store.Gia.toLocaleString('vi-VN') }}đ</strong>
                             </p>
-                            <div class=" d-flex align-items-center gap-2 mt-2 mb-3">
-                                <i class="bi bi-star-fill color-star"></i>
-                                <p class="m-0 me-1 fs-3 fw-bold" style="color: var(--colortext1);">5.0</p>
+                            <div class="d-flex align-items-center gap-2 mt-2 mb-3">
+                                <template v-for="star in 5" :key="star">
+                                    <i 
+                                        class="bi bi-star-fill" 
+                                        :class="star <= (product_store.so_sao || 0) ? 'color-star' : 'color-star-gray'"
+                                    ></i>
+                                </template>
+                                <p class="m-0 me-1 fs-3 fw-bold" style="color: var(--colortext1);">{{ product_store.so_sao || 0 }}</p>
                                 <i class="bi bi-dot fs-2" style="color: var(--colortext2);"></i>
-                                <a href="#" class="m-0 fs-4 fw-regular fst-italic rating-link-view">Đánh giá (10)</a>
+                                <a href="#" class="m-0 fs-4 fw-regular fst-italic rating-link-view">Đánh giá ({{ product_store.tong_danh_gia || 0 }})</a>
                             </div>
-                            <p class="product-desc">
-                                Áo thun nam thể thao phối bo cổ được thiết kế năng động, trẻ trung, phù hợp cho 
-                                các hoạt động hàng ngày và tập luyện. Chất liệu vải thoáng khí, co giãn tốt, mang 
-                                lại cảm giác thoải mái khi vận động.
-                            </p>
-                            <h5 class="mt-4 fs-4">Màu sắc:</h5>
-                            <div class="color-options mt-3">
-                                <div style="background: #ddd;"></div>
-                                <div style="background: #c4aead;"></div>
-                            </div>
-                            <h5 class="mt-4 fs-4">Size:</h5>
-                            <div class="size-options mt-3">
-                                <div class="fs-4">S</div>
-                                <div class="fs-4">M</div>
-                                <div class="fs-4">L</div>
-                                <div class="fs-4">XL</div>
-                                <div class="fs-4">XXL</div>
-                            </div>
+                            <p class="product-desc">{{ product_store.Mo_ta }}</p>
+                            <template v-if="product_store.san_pham_mau_size && product_store.san_pham_mau_size.length > 0">
+                                <h5 class="mt-4 fs-4">Màu sắc:</h5>
+                                <div class="color-options mt-3">
+                                    <div 
+                                        v-for="(colorId, index) in uniqueColors" 
+                                        :key="'color-'+index" 
+                                        class="color-option"
+                                        :style="{ backgroundColor: '#'+colorId }"
+
+                                    >
+                                        Màu ID: {{ colorId }}
+                                    </div>
+                                </div>
+                                
+                                <h5 class="mt-4 fs-4">Size:</h5>
+                                <div class="size-options mt-3">
+                                    <div 
+                                        v-for="(sizeId, index) in uniqueSizes" 
+                                        :key="'size-'+index" 
+                                        class="fs-4"
+                                    >
+                                        {{ sizeId }}
+                                    </div>
+                                </div>
+                            </template>
                             <div class="mt-4 d-flex align-items-center gap-4">
-                                <div><input type="number" class="form-date product-quantity" name="quantity" value="1" id=""></div>
+                                <div>
+                                    <input type="number" v-model="quantity" class="form-date product-quantity" name="quantity" min="1">
+                                </div>
                                 <a href="" class="btn-order">Thêm vào giỏ hàng</a>
                                 <div class="d-flex align-items-center gap-1 btn-add-wishlist">
                                     <div><i class="bi bi-heart-fill fs-3"></i></div>
@@ -122,75 +143,45 @@ onMounted(() => {
         <section class="detail-infor">
             <div class="container">
                 <ul class="d-flex list-unstyled detail-infor__list">
-                    <li class="detail-infor__desc-rating">Mô tả</li>
-                    <li class="detail-infor__desc-rating">Đánh giá</li>
+                    <li 
+                        class="detail-infor__desc-rating" 
+                        :class="{ 'desc-detail__seleted': activeTab == 'description' }"
+                        @click="handleTabClick('description')"
+                    >
+                        Mô tả
+                    </li>
+                    <li 
+                        class="detail-infor__desc-rating"
+                        :class="{ 'desc-detail__seleted': activeTab == 'reviews' }"
+                        @click="handleTabClick('reviews')"
+                    >
+                        Đánh giá
+                    </li>
                 </ul>
-                <div id="desc-box">
+                <div v-show="activeTab == 'description'" class="desc-box">
                     <div class="row gx-0">
                         <div class="col-12 col-lg-7">
                             <div class="padding-custom">
-                                <!-- <h2 class="fs-1 text-start my-3">Thông tin chi tiết</h2> -->
                                 <div>
-                                    <h3 class="fs-3 fw-semibold text-start">1. Giới thiệu Sân Pickleball Đông Sài Gòn</h3>
-                                    <ul class="mt-3">
-                                        <li style="color: var(--colortext2); font-size: 1.5rem; line-height: 2.4rem; text-align: justify;">
-                                            Sân Pickleball Đông Sài Gòn có quy mô 11 sân ngoài trời, nổi tiếng với không gian rộng rãi, 
-                                            thoáng mát, view cực đẹp. Hệ thống chiếu sáng LED hiện đại được bố trí đều trên sân, 
-                                            đảm bảo đủ ánh sáng cho việc chơi Pickleball cả ban ngày lẫn ban đêm. Mặt sân chất lượng, 
-                                            đạt chuẩn quốc tế, luôn được vệ sinh sạch sẽ và đảm bảo độ bám tốt. Khu vực nghỉ ngơi 
-                                            rộng rãi, đầy đủ tiện nghi, giúp người chơi thư giãn và thoải mái.
-                                        </li>
-                                        <li style="color: var(--colortext2); font-size: 1.5rem; line-height: 2.4rem; text-align: justify;">
-                                            Ngoài ra, nơi đây có tích hợp nhiều dịch vụ giải trí khác vô cùng tiện lợi nếu dẫn con 
-                                            em đi theo. Có cho thuê vợt và bóng Pickleball với giá cả hợp lý. Bãi giữ xe rộng rãi, 
-                                            có thể chứa cả ô tô và xe máy. Trang thiết bị tại sân đều mới, sạch sẽ và đạt chuẩn. 
-                                            Pickleball D-Joy còn tổ chức các lớp học Pickleball cơ bản, giúp người chơi dễ tiếp cận 
-                                            bộ môn này, đồng thời rèn luyện kỹ năng và nâng cao trình độ. Những người đến chơi tại đây 
-                                            đều rất hòa đồng, thân thiện và tỏ ra hài lòng với trải nghiệm tại sân.
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div>
-                                    <h3 class="fs-3 fw-semibold text-start">2. Giá thuê Sân Pickleball Đông Sài Gòn</h3>
-                                    <ul class="mt-3">
-                                        <li style="color: var(--colortext2); font-size: 1.5rem; line-height: 2.4rem; text-align: justify;">
-                                            Dao động từ 140.000đ - 290.000đ/giờ tuỳ theo giờ chơi. 
-                                        </li>
-                                        <li style="color: var(--colortext2); font-size: 1.5rem; line-height: 2.4rem; text-align: justify;">
-                                            Giá có thể thay đổi theo tình hình giờ giấc thực tế, nếu bạn muốn biết thêm chi tiết giá đặt sân, 
-                                            các bạn có thể liên hệ hotline hoặc Zalo của sân để được tư vấn nhé.
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div>
-                                    <h3 class="fs-3 fw-semibold text-start">3. Các dịch vụ tiện ích của sân</h3>
-                                    <ul class="mt-3">
-                                        <li style="color: var(--colortext2); font-size: 1.5rem; line-height: 2.4rem; text-align: justify;">
-                                            Khu vực nghỉ ngơi rộng rãi và đầy đủ tiện nghi, giúp người chơi thư giãn thoải mái sau khi vận động.
-                                        </li>
-                                        <li style="color: var(--colortext2); font-size: 1.5rem; line-height: 2.4rem; text-align: justify;">
-                                            Có cho thuê vợt và bóng Pickleball với giá cả hợp lý, tiện lợi cho những ai chưa trang bị sẵn.
-                                        </li>
-                                        <li style="color: var(--colortext2); font-size: 1.5rem; line-height: 2.4rem; text-align: justify;">
-                                            Bãi giữ xe rộng rãi có thể chứa cả ô tô và xe máy, đảm bảo an toàn.
-                                        </li>
-                                        <li style="color: var(--colortext2); font-size: 1.5rem; line-height: 2.4rem; text-align: justify;">
-                                            Cổ chức các lớp học Pickleball cơ bản, giúp người chơi dễ dàng tiếp cận bộ môn này, rèn luyện kỹ năng và nâng cao trình độ.
-                                        </li>
-                                    </ul>
+                                    <h3 class="fs-3 fw-semibold text-start">Thông tin sản phẩm</h3>
+                                    <div class="mt-3" style="color: var(--colortext2); font-size: 1.5rem; line-height: 2.4rem; text-align: justify;">
+                                        {{ product_store.Mo_ta }}
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-12 col-lg-5">
                             <div class="ps-5 pe-lg-0 pe-3 detail-infor__thumnail">
-                                <div class="my-2"><img src="../../public/img/p1.png" alt="" class="img-fluid"></div>
-                                <div class="my-2"><img src="../../public/img/p1.png" alt="" class="img-fluid"></div>
-                                <div class="my-2"><img src="../../public/img/p1.png" alt="" class="img-fluid"></div>
+                                <template v-if="product_store.anh_phu">
+                                    <div v-for="(image, index) in product_store.anh_phu" :key="index" class="my-2">
+                                        <img :src="'/public/img/img_sp/' + image" :alt="product_store.Ten_san_pham" class="img-fluid">
+                                    </div>
+                                </template>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div id="comment-box">
+                <div v-show="activeTab === 'reviews'" class="comment-box">
                     <div class="row gx-0 justify-content-between mt-5">
                         <div class="col-6">
                             <div class="comment-box__rating mt-4">
@@ -271,7 +262,7 @@ onMounted(() => {
                                     <div class="px-5">
                                         <div class="d-flex gap-4 flex-fill">
                                             <div class="bkdt__comment-user">
-                                                <img src="../../public/img/user1.jpg" alt="" class="img-fluid rounded-circle">
+                                                <img src="../img/user1.jpg" alt="" class="img-fluid rounded-circle">
                                             </div>
                                             <div>
                                                 <div class="">
@@ -302,7 +293,7 @@ onMounted(() => {
                                     <div class="px-5">
                                         <div class="d-flex gap-4 flex-fill">
                                             <div class="bkdt__comment-user">
-                                                <img src="../../public/img/user1.jpg" alt="" class="img-fluid rounded-circle">
+                                                <img src="../img/user1.jpg" alt="" class="img-fluid rounded-circle">
                                             </div>
                                             <div>
                                                 <div class="">
@@ -333,7 +324,7 @@ onMounted(() => {
                                     <div class="px-5">
                                         <div class="d-flex gap-4 flex-fill">
                                             <div class="bkdt__comment-user">
-                                                <img src="../../public/img/user1.jpg" alt="" class="img-fluid rounded-circle">
+                                                <img src="../img/user1.jpg" alt="" class="img-fluid rounded-circle">
                                             </div>
                                             <div>
                                                 <div class="">
@@ -364,7 +355,7 @@ onMounted(() => {
                                     <div class="px-5">
                                         <div class="d-flex gap-4 flex-fill">
                                             <div class="bkdt__comment-user">
-                                                <img src="../../public/img/user1.jpg" alt="" class="img-fluid rounded-circle">
+                                                <img src="../img/user1.jpg" alt="" class="img-fluid rounded-circle">
                                             </div>
                                             <div>
                                                 <div class="">
@@ -549,4 +540,35 @@ onMounted(() => {
             </div>
         </section>
     </main>
+    <div v-else class="container py-5 text-center">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Đang tải...</span>
+        </div>
+    </div>
 </template>
+
+<style scoped>
+.color-star {
+    color: var(--hover2);
+}
+
+.color-star-gray {
+    color: #ddd;
+}
+
+.color-option {
+    display: inline-block;
+    padding: 5px 10px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.color-option:hover {
+    border-color: var(--primary);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+</style>

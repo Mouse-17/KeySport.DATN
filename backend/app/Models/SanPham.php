@@ -45,4 +45,9 @@ class SanPham extends Model
     {
         return $this->belongsTo(ThuongHieu::class, 'id_thuonghieu');
     }
+
+    public function san_pham_mau_size()
+    {
+        return $this->hasMany(SP_MauSize::class, 'ID_SP');
+    }
 } 

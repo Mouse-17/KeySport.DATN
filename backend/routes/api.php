@@ -32,3 +32,33 @@ Route::get('/sanpham/{id}', [ProductController::class, 'showdetail']);
 Route::apiResource('san', SanController::class);
 Route::get('/san', [SanController::class, 'showListYard']);
 Route::get('/san/{id}', [SanController::class, 'show']);
+
+// Route kiểm tra màu sắc và kích thước
+Route::get('/check-mau-size', function() {
+    $mau = \App\Models\MauSac::all();
+    $size = \App\Models\Size::all();
+    $sp_mau_size = \App\Models\SP_MauSize::with(['mau', 'size'])->get();
+    
+    return response()->json([
+        'mau' => $mau,
+        'size' => $size,
+        'sp_mau_size' => $sp_mau_size
+    ]);
+});
+
+// API endpoints để lấy thông tin màu và size từ ID
+Route::get('/mau/{id}', function($id) {
+    $mau = \App\Models\MauSac::find($id);
+    return response()->json([
+        'status' => 'success',
+        'data' => $mau
+    ]);
+});
+
+Route::get('/size/{id}', function($id) {
+    $size = \App\Models\Size::find($id);
+    return response()->json([
+        'status' => 'success',
+        'data' => $size
+    ]);
+});

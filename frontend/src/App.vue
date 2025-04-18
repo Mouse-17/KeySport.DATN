@@ -1,16 +1,18 @@
 <script setup lang="ts">
     import { ref, watch, onMounted } from "vue";
     import { onClickOutside } from "@vueuse/core";
-    import { useRoute } from "vue-router";
+    import { useRoute, useRouter } from "vue-router";
+    import axios from 'axios';
 
     const route = useRoute();
+    const router = useRouter();
 
     const btnSearch = ref<HTMLElement | null>(null);
     const showSearch = ref<HTMLElement | null>(null);
     const showSearchBox = ref(false);
 
     const clickSearch = (event: Event) => {
-        event.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ <a>
+        event.preventDefault();
         showSearchBox.value = true;
     };
 
@@ -21,6 +23,43 @@
     // Sử dụng onClickOutside để theo dõi cả nút search và ô tìm kiếm
     onClickOutside(showSearch, closeSearch);
 
+    const tukhoa = ref('');
+    const products = ref([]);
+    const submitSearch = async () => {
+        if (!tukhoa.value.trim()) return;
+        
+        try {
+            const response = await axios.post('http://localhost:8000/api/sanpham', {
+                tukhoa: tukhoa.value,
+            },
+            {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+        );
+            console.log(tukhoa);
+            
+            if (response.data.status == 'success') {
+                products.value = response.data.data;
+                console.log(products.value);
+                // Chuyển hướng đến trang sản phẩm với từ khóa tìm kiếm
+                router.push({
+                    path: '/sanpham',
+                    query: { 
+                        trang: 1,
+                        tukhoa: tukhoa.value 
+                    }
+                });
+                // Đóng form tìm kiếm
+                showSearchBox.value = false;
+            } else {
+                console.error('Lỗi tìm kiếm:', response.data.message);
+            }
+        } catch (error) {
+            console.error('Lỗi khi tìm kiếm:', error);
+        }
+    };
 </script>
 
 <template>
@@ -45,13 +84,13 @@
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-between py-3">
                 <div class="" style="width: 9%; min-width: 110px;">
                     <RouterLink to="/" class="d-inline-flex link-body-emphasis text-decoration-none">
-                        <img src="../public/img/logo.jpg" alt="" class="img-fluid">
+                        <img src="../img/logo.jpg" alt="" class="img-fluid">
                     </RouterLink>
                 </div>
         
                 <ul class="nav col-12 col-md-auto justify-content-center mb-md-0 my-lg-0 my-4">
                     <li><RouterLink to="/booking" class="nav-link px-3 px-lg-4 fs-lg-4 fs-md-5">BOOKING</RouterLink></li>
-                    <li><RouterLink to="/sanpham" class="nav-link px-3 px-lg-4 fs-lg-4 fs-md-5">SẢN PHẨM</RouterLink></li>
+                    <li><RouterLink to="/sanpham?trang=1" class="nav-link px-3 px-lg-4 fs-lg-4 fs-md-5">SẢN PHẨM</RouterLink></li>
                     <li><RouterLink to="/gioithieu" class="nav-link px-3 px-lg-4 fs-lg-4 fs-md-5">GIỚI THIỆU</RouterLink></li>
                     <li><RouterLink to="/lienhe" class="nav-link px-3 px-lg-4 fs-lg-4 fs-md-5">LIÊN HỆ</RouterLink></li>
                     <li><RouterLink to="/tintuc" class="nav-link px-3 px-lg-4 fs-lg-4 fs-md-5">TIN TỨC</routerLink></li>
@@ -62,8 +101,17 @@
                         <a  @click="clickSearch" ref="btnSearch" href="#" class="nav-icon" id="header__search-btn">
                             <i class="bi bi-search"></i>
                         </a>
-                        <form action="" method="post" class="position-absolute" v-if="showSearchBox" ref="showSearch" id="header__search-form" style="top: 36px; z-index: 1;">
-                            <input type="text" name="search" placeholder="Tìm kiếm..." class="form-date" style="padding: 14px 12px; font-size: 1.4rem; ">
+                        <form @submit.prevent="submitSearch" method="post" class="position-absolute" v-if="showSearchBox" ref="showSearch" id="header__search-form" style="top: 36px; z-index: 1;">
+                            <div class="input-group">
+                                <input 
+                                    type="text" 
+                                    v-model="tukhoa" 
+                                    name="search" 
+                                    placeholder="Tìm kiếm..." 
+                                    class="form-date" 
+                                    style="padding: 14px 12px; font-size: 1.4rem;"
+                                >
+                            </div>
                         </form>
                     </div>
                     <div><a href="#" class="nav-icon"><i class="bi bi-bell"></i></a></div>
@@ -84,7 +132,7 @@
           <div class="row gx-0">
               <div class="col-12 col-lg-3 col-md-6  p-0">
                   <div class="footer-box px-3">
-                      <img src="../public/img/logo.jpg" alt="Logo" class="footer-logo mb-3">
+                      <img src="../img/logo.jpg" alt="Logo" class="footer-logo mb-3">
                       <p class="fs-4 footer-infor"><i class="bi bi-telephone fs-3"></i> 1900.5678</p>
                       <p class="fs-4 footer-infor"><i class="bi bi-geo-alt fs-3"></i> Công Viên Phần Mềm Quang Trung, Tô Ký, Quận 12, TP.HCM</p>
                       <p class="fs-4 footer-infor"><i class="bi bi-envelope fs-3"></i> keysport@gmail.com</p>
@@ -126,8 +174,8 @@
                           <a href="#" class="nav-link-footer icon-footer"><i class="bi bi-envelope"></i></a>
                       </div>
                       <div class="app-links mt-5 d-flex align-items-center gap-1">
-                          <img src="../public/img/ggplay.png" alt="Google Play">
-                          <img src="../public/img/appstore.png" alt="App Store">
+                          <img src="../img/ggplay.png" alt="Google Play">
+                          <img src="../img/appstore.png" alt="App Store">
                       </div>
                   </div>
               </div>
@@ -141,4 +189,5 @@
     </footer>
   </body>
 </template>
+
 

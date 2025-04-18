@@ -1,305 +1,247 @@
 <script setup lang="ts">
-import { ref, watch, onMounted } from "vue";
-import { onClickOutside } from "@vueuse/core";
-import { RouterLink } from "vue-router";
+import { ref, onMounted, computed } from 'vue';
 
-    const showVoucher = ref<HTMLElement | null>(null);
-    const voucherBox = ref<HTMLElement | null>(null);
-    const isVoucherVisible = ref(false);
+interface CartItem {
+    id: number;
+    productId: number;
+    tenSanPham: string;
+    anhDaiDien: string;
+    gia: number;
+    soLuong: number;
+    mauId: number | null;
+    sizeId: number | null;
+}
 
-    // Hàm mở hộp voucher
-    const clickshowVoucher = () => {
-        isVoucherVisible.value = true;  // Đổi trạng thái mỗi khi click
-        document.body.classList.add("background-after");
-        document.body.style.overflow = "hidden";
-        setTimeout(() => {
-            if (voucherBox.value) {
-                voucherBox.value.scrollIntoView({ behavior: "smooth", block: "end" });
-            }
-        }, 100);
-    };
+const cartItems = ref<CartItem[]>([]);
+const isLoading = ref(true);
 
-    // Hàm đóng hộp voucher khi click bên ngoài
-    const closeVoucher = () => {
-        isVoucherVisible.value = false;
-        document.body.classList.remove("background-after");
-        document.body.style.overflow = "";
-    };
+// Tổng tiền giỏ hàng
+const cartTotal = computed(() => {
+    return cartItems.value.reduce((total, item) => total + (item.gia * item.soLuong), 0);
+});
 
+// Số lượng sản phẩm
+const itemCount = computed(() => {
+    return cartItems.value.reduce((count, item) => count + item.soLuong, 0);
+});
 
-    // Khi hộp thoại hiển thị, chỉ lúc đó mới lắng nghe sự kiện click outside
-    watch(isVoucherVisible, (visible) => {
-        if (visible) {
-            onClickOutside(voucherBox, closeVoucher);
-        }
-    });
+// Lấy giỏ hàng từ localStorage
+const loadCart = () => {
+    isLoading.value = true;
+    const cartString = localStorage.getItem('cart');
+    if (cartString) {
+        cartItems.value = JSON.parse(cartString);
+    }
+    isLoading.value = false;
+};
+
+// Cập nhật số lượng sản phẩm
+const updateQuantity = (itemId: number, newQuantity: number) => {
+    if (newQuantity < 1) newQuantity = 1;
+    
+    const index = cartItems.value.findIndex(item => item.id === itemId);
+    if (index !== -1) {
+        cartItems.value[index].soLuong = newQuantity;
+        saveCart();
+    }
+};
+
+// Xóa sản phẩm khỏi giỏ hàng
+const removeItem = (itemId: number) => {
+    cartItems.value = cartItems.value.filter(item => item.id !== itemId);
+    saveCart();
+};
+
+// Lưu giỏ hàng vào localStorage
+const saveCart = () => {
+    localStorage.setItem('cart', JSON.stringify(cartItems.value));
+};
+
+// Xóa toàn bộ giỏ hàng
+const clearCart = () => {
+    if (confirm('Bạn có chắc chắn muốn xóa tất cả sản phẩm khỏi giỏ hàng?')) {
+        cartItems.value = [];
+        saveCart();
+    }
+};
+
+// Tiến hành thanh toán
+const checkout = () => {
+    alert('Chức năng thanh toán đang được phát triển!');
+    // Ở đây bạn có thể chuyển hướng người dùng đến trang thanh toán
+};
+
+onMounted(() => {
+    loadCart();
+});
 </script>
+
 <template>
-    <main>
-        <section class="cart">
-            <div class="container">
-                <div class="row gx-0">
-                    <div class="col-lg-7 col-12 p-0">
-                        <div class="cart-left px-2">
-                            <div class="cart-left__title">
-                                <h3 class="cart-left_title-h3 fw-semibold">Sản phẩm</h3>
-                                <h3 class="cart-left_title-h3 fw-semibold">Số lượng</h3>
-                                <h3 class="cart-left_title-h3 cart-left_title-h3-none fw-semibold">Đơn giá</h3>
-                            </div>
-                            <div class="cart-left__title">
-                                <div class="d-flex align-items-center gap-3">
-                                    <div><input type="checkbox" class="form-check-input" name="" id=""></div>
-                                    <div class="d-flex align-items-start gap-3">
-                                        <div style="width: 30%; min-width: 60px;"><img src="../../public/img/p1.png" class="img-fluid" alt=""></div>
-                                        <div>
-                                            <h4 class="title-product mb-2" style="font-size: 1.6rem;">Áo thun bo cổ</h4>    
-                                            <p class="my-1" style="font-size: 1.4rem;color: var(--colortext3);">Đen - L</p>
-                                            <h4 class="title-product mb-2 product-price-phone" style="font-size: 1.5rem;">240.000đ</h4>    
-                                        </div>
+    <div class="container py-5">
+        <h1 class="mb-4">Giỏ hàng của bạn</h1>
+        
+        <div v-if="isLoading" class="text-center py-5">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Đang tải...</span>
+            </div>
+        </div>
+        
+        <div v-else-if="cartItems.length === 0" class="text-center py-5">
+            <p class="fs-4">Giỏ hàng của bạn đang trống</p>
+            <a href="/" class="btn-primary mt-3">Tiếp tục mua sắm</a>
+        </div>
+        
+        <div v-else>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Sản phẩm</th>
+                            <th>Giá</th>
+                            <th>Số lượng</th>
+                            <th>Tổng tiền</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="item in cartItems" :key="item.id">
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <img :src="'/public/img/img_sp/' + item.anhDaiDien" :alt="item.tenSanPham" 
+                                         class="cart-item-image me-3">
+                                    <div>
+                                        <h5 class="mb-1">{{ item.tenSanPham }}</h5>
+                                        <div v-if="item.mauId">Màu: {{ item.mauId }}</div>
+                                        <div v-if="item.sizeId">Size: {{ item.sizeId }}</div>
                                     </div>
                                 </div>
-                                <div class="mx-auto">
-                                    <div class="d-flex">
-                                        <i class="bi bi-dash"></i>
-                                        <p class="cart-quantity">1</p>
-                                        <i class="bi bi-plus"></i>
-                                    </div>
-                                    <div class="d-flex align-items-center justify-content-center gap-1 btn-remove-atc">
-                                        <i class="bi bi-trash fs-3"></i>
-                                        <p class="m-0 fs-4">Xóa</p>
-                                    </div>
+                            </td>
+                            <td>{{ item.gia.toLocaleString('vi-VN') }}đ</td>
+                            <td>
+                                <div class="quantity-control">
+                                    <button @click="updateQuantity(item.id, item.soLuong - 1)" class="quantity-btn">-</button>
+                                    <input type="number" v-model="item.soLuong" min="1" 
+                                           @change="updateQuantity(item.id, item.soLuong)" class="quantity-input">
+                                    <button @click="updateQuantity(item.id, item.soLuong + 1)" class="quantity-btn">+</button>
                                 </div>
-                                <p class="m-0 fs-3 fw-semibold mx-auto product-price" style="color: var(--colortext1);">240.000đ</p>
-                            </div>
-                            <div class="cart-left__title">
-                                <div class="d-flex align-items-center gap-3">
-                                    <div><input type="checkbox" class="form-check-input" name="" id=""></div>
-                                    <div class="d-flex align-items-start gap-3">
-                                        <div style="width: 30%; min-width: 60px;"><img src="../../public/img/p1.png" class="img-fluid" alt=""></div>
-                                        <div>
-                                            <h4 class="title-product mb-2" style="font-size: 1.6rem;">Áo thun bo cổ</h4>    
-                                            <p class="my-1" style="font-size: 1.4rem;color: var(--colortext3);">Đen - L</p>
-                                            <h4 class="title-product mb-2 product-price-phone" style="font-size: 1.5rem;">240.000đ</h4>    
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mx-auto">
-                                    <div class="d-flex">
-                                        <i class="bi bi-dash"></i>
-                                        <p class="cart-quantity">1</p>
-                                        <i class="bi bi-plus"></i>
-                                    </div>
-                                    <div class="d-flex align-items-center justify-content-center gap-1 btn-remove-atc">
-                                        <i class="bi bi-trash fs-3"></i>
-                                        <p class="m-0 fs-4">Xóa</p>
-                                    </div>
-                                </div>
-                                <p class="m-0 fs-3 fw-semibold mx-auto product-price" style="color: var(--colortext1);">240.000đ</p>
-                            </div>
-                            <div class="cart-left__title">
-                                <div class="d-flex align-items-center gap-3">
-                                    <div><input type="checkbox" class="form-check-input" name="" id=""></div>
-                                    <div class="d-flex align-items-start gap-3">
-                                        <div style="width: 30%; min-width: 60px;"><img src="../../public/img/p1.png" class="img-fluid" alt=""></div>
-                                        <div>
-                                            <h4 class="title-product mb-2" style="font-size: 1.6rem;">Áo thun bo cổ</h4>    
-                                            <p class="my-1" style="font-size: 1.4rem;color: var(--colortext3);">Đen - L</p>
-                                            <h4 class="title-product mb-2 product-price-phone" style="font-size: 1.5rem;">240.000đ</h4>    
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mx-auto">
-                                    <div class="d-flex">
-                                        <i class="bi bi-dash"></i>
-                                        <p class="cart-quantity">1</p>
-                                        <i class="bi bi-plus"></i>
-                                    </div>
-                                    <div class="d-flex align-items-center justify-content-center gap-1 btn-remove-atc">
-                                        <i class="bi bi-trash fs-3"></i>
-                                        <p class="m-0 fs-4">Xóa</p>
-                                    </div>
-                                </div>
-                                <p class="m-0 fs-3 fw-semibold mx-auto product-price" style="color: var(--colortext1);">240.000đ</p>
-                            </div>
-                            <div class="cart-left__title">
-                                <div class="d-flex align-items-center gap-3">
-                                    <div><input type="checkbox" class="form-check-input" name="" id=""></div>
-                                    <div class="d-flex align-items-start gap-3">
-                                        <div style="width: 30%; min-width: 60px;"><img src="../../public/img/p1.png" class="img-fluid" alt=""></div>
-                                        <div>
-                                            <h4 class="title-product mb-2" style="font-size: 1.6rem;">Áo thun bo cổ</h4>    
-                                            <p class="my-1" style="font-size: 1.4rem;color: var(--colortext3);">Đen - L</p>
-                                            <h4 class="title-product mb-2 product-price-phone" style="font-size: 1.5rem;">240.000đ</h4>    
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mx-auto">
-                                    <div class="d-flex">
-                                        <i class="bi bi-dash"></i>
-                                        <p class="cart-quantity">1</p>
-                                        <i class="bi bi-plus"></i>
-                                    </div>
-                                    <div class="d-flex align-items-center justify-content-center gap-1 btn-remove-atc">
-                                        <i class="bi bi-trash fs-3"></i>
-                                        <p class="m-0 fs-4">Xóa</p>
-                                    </div>
-                                </div>
-                                <p class="m-0 fs-3 fw-semibold mx-auto product-price" style="color: var(--colortext1);">240.000đ</p>
-                            </div>
-                            <div class="cart-left__title">
-                                <div class="d-flex align-items-center gap-3">
-                                    <div><input type="checkbox" class="form-check-input" name="" id=""></div>
-                                    <div class="d-flex align-items-start gap-3">
-                                        <div style="width: 30%; min-width: 60px;"><img src="../../public/img/p1.png" class="img-fluid" alt=""></div>
-                                        <div>
-                                            <h4 class="title-product mb-2" style="font-size: 1.6rem;">Áo thun bo cổ</h4>    
-                                            <p class="my-1" style="font-size: 1.4rem;color: var(--colortext3);">Đen - L</p>
-                                            <h4 class="title-product mb-2 product-price-phone" style="font-size: 1.5rem;">240.000đ</h4>    
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mx-auto">
-                                    <div class="d-flex">
-                                        <i class="bi bi-dash"></i>
-                                        <p class="cart-quantity">1</p>
-                                        <i class="bi bi-plus"></i>
-                                    </div>
-                                    <div class="d-flex align-items-center justify-content-center gap-1 btn-remove-atc">
-                                        <i class="bi bi-trash fs-3"></i>
-                                        <p class="m-0 fs-4">Xóa</p>
-                                    </div>
-                                </div>
-                                <p class="m-0 fs-3 fw-semibold mx-auto product-price" style="color: var(--colortext1);">240.000đ</p>
-                            </div>
-                        </div>
+                            </td>
+                            <td>{{ (item.gia * item.soLuong).toLocaleString('vi-VN') }}đ</td>
+                            <td>
+                                <button @click="removeItem(item.id)" class="btn-remove">
+                                    <i class="bi bi-trash-fill"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="row mt-5">
+                <div class="col-md-6">
+                    <div class="d-flex">
+                        <button @click="clearCart" class="btn-outline me-3">Xóa giỏ hàng</button>
+                        <a href="/" class="btn-outline">Tiếp tục mua sắm</a>
                     </div>
-                    <div class="col-lg-5 col-12 p-0 cart-right">
-                        <div class="px-2 cart-right-child">
-                            <div class="cart-right-bottom">
-                                <h4 class="fs-3 fw-semibold mb-3">Giỏ hàng</h4>
-                                <div class="mx-2">
-                                    <div class="py-3" style="border-top: 1px solid var(--colortext3);">
-                                        <div class="row gx-0 justify-content-between">
-                                            <div class="col-3">
-                                                <div class="pe-2">
-                                                    <img src="../../public/img/p1.png" alt="" class="img-fluid">
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <div class="px-2">
-                                                    <p class="title-product fs-4 m-0" style="color: var(--colortext1);">Áo thun bo cổ</p>
-                                                    <p class="m-0 py-1 fs-5" style="color: var(--colortext3);">TÊN DANH MỤC</p>
-                                                    <p class="my-3" style="font-size: 1.4rem; color: var(--colortext2);">Số lượng: 1</p>
-                                                </div>
-                                            </div>
-                                            <div class="col-3">
-                                                <p class="text-end fs-4 fw-bold" style="color: var(--accent);">240.000đ</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="py-3" style="border-top: 1px solid var(--colortext3);">
-                                        <div class="row gx-0 justify-content-between">
-                                            <div class="col-3">
-                                                <div class="pe-2">
-                                                    <img src="../../public/img/p1.png" alt="" class="img-fluid">
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <div class="px-2">
-                                                    <p class="title-product fs-4 m-0" style="color: var(--colortext1);">Áo thun bo cổ</p>
-                                                    <div class=" d-flex m-0 py-1 fs-5" style="color: var(--colortext3);">
-                                                        <p class="fs-5">Size(L)</p>
-                                                        <i class="bi bi-dot fs-4"></i>
-                                                        <p class="fs-5">Màu(Đen)</p>
-                                                    </div>
-                                                    <p class="my-3" style="font-size: 1.4rem; color: var(--colortext2);">Số lượng: 1</p>
-                                                </div>
-                                            </div>
-                                            <div class="col-3">
-                                                <p class="text-end fs-4 fw-bold" style="color: var(--accent);">240.000đ</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="py-3" style="border-top: 1px solid var(--colortext3);">
-                                        <div class="d-flex align-items-baseline justify-content-between gap-4">
-                                            <p class="my-2 fs-4" style="color: var(--colortext3);">Phí ship</p>
-                                            <p class="my-2 fs-4 fw-bold" style="color: var(--colortext1);">+ 25.000đ</p>
-                                        </div>
-                                        <div class="d-flex align-items-center justify-content-between">
-                                            <p class="my-2 fs-4" style="color: var(--colortext3);">Voucher</p>
-                                            <p class="my-2 fs-4 fw-bold" style="color: var(--colortext1);">- 25.000đ</p>
-                                        </div>
-                                    </div>
-                                    <div class="py-3" style="border-top: 1px solid var(--colortext3);">
-                                        <div class="d-flex align-items-center justify-content-end pos">
-                                            <p class="my-2 fs-4 fw-bold chooseVoucher" @click="clickshowVoucher" ref="showVoucher" id="showVoucher">Chọn Voucher</p>
-                                            <div class="voucherBox position-relative">
-                                                <div v-if="isVoucherVisible" ref="voucherBox" class="cart-right-top" id="voucherBoxId">
-                                                    <h4 class="fs-3 fw-semibold mb-3">Mã khuyến mãi</h4>
-                                                    <form action="" class="d-flex align-items-center gap-2">
-                                                        <input type="text" placeholder="Mã Voucher" style="width: 69%;" class="form-date d-block inputBorder">
-                                                        <button type="submit"  class="btn-booknow mt-0">Áp dụng</button>
-                                                    </form>
-                                                    <hr class="line">
-                                                    <div class="voucher-option">
-                                                        <div class="voucher-option__item">
-                                                            <div class="divimg"><img src="../../public/img/p1.png" class="img-fluid" alt=""></div>
-                                                            <div class="py-3">
-                                                                <p class="my-1 fw-semibold" style="font-size: 1.7rem;color: var(--accent);">Giảm 20.000đ</p>
-                                                                <p class="mt-2 fs-5" style="color: var(--colortext3);">Đối với các đơn có giá trị trên 150.000đ</p>
-                                                            </div>
-                                                            <button class="btn-booknow fs-4 p-3 mt-3 me-3" style="width: 70px;">Lấy mã</button>
-                                                        </div>
-                                                        <div class="voucher-option__item">
-                                                            <div class="divimg"><img src="../../public/img/voucher.jpg" class="img-fluid" alt=""></div>
-                                                            <div class="py-3">
-                                                                <p class="my-1 fw-semibold" style="font-size: 1.7rem;color: var(--accent);">Giảm 20.000đ</p>
-                                                                <p class="mt-2 fs-5" style="color: var(--colortext3);">Đối với các đơn có giá trị trên 150.000đ</p>
-                                                            </div>
-                                                            <button class="btn-booknow fs-4 p-3 mt-3 me-3" style="width: 70px;">Lấy mã</button>
-                                                        </div>
-                                                        <div class="voucher-option__item">
-                                                            <div class="divimg"><img src="../../public/img/voucher.jpg" class="img-fluid" alt=""></div>
-                                                            <div class="py-3">
-                                                                <p class="my-1 fw-semibold" style="font-size: 1.7rem;color: var(--accent);">Giảm 20.000đ</p>
-                                                                <p class="mt-2 fs-5" style="color: var(--colortext3);">Đối với các đơn có giá trị trên 150.000đ</p>
-                                                            </div>
-                                                            <button class="btn-booknow fs-4 p-3 mt-3 me-3" style="width: 70px;">Lấy mã</button>
-                                                        </div>
-                                                        <div class="voucher-option__item">
-                                                            <div class="divimg"><img src="../../public/img/voucher.jpg" class="img-fluid" alt=""></div>
-                                                            <div class="py-3">
-                                                                <p class="my-1 fw-semibold" style="font-size: 1.7rem;color: var(--accent);">Giảm 20.000đ</p>
-                                                                <p class="mt-2 fs-5" style="color: var(--colortext3);">Đối với các đơn có giá trị trên 150.000đ</p>
-                                                            </div>
-                                                            <button class="btn-booknow fs-4 p-3 mt-3 me-3" style="width: 70px;">Lấy mã</button>
-                                                        </div>
-                                                        <div class="voucher-option__item">
-                                                            <div class="divimg"><img src="../../public/img/voucher.jpg" class="img-fluid" alt=""></div>
-                                                            <div class="py-3">
-                                                                <p class="my-1 fw-semibold" style="font-size: 1.7rem;color: var(--accent);">Giảm 20.000đ</p>
-                                                                <p class="mt-2 fs-5" style="color: var(--colortext3);">Đối với các đơn có giá trị trên 150.000đ</p>
-                                                            </div>
-                                                            <button class="btn-booknow fs-4 p-3 mt-3 me-3" style="width: 70px;">Lấy mã</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="py-3" style="border-top: 1px solid var(--colortext3);">
-                                        <div class="d-flex align-items-baseline justify-content-between gap-4">
-                                            <p class="my-2 fs-3 fw-semibold" style="color: var(--accent);">Tổng thành tiền</p>
-                                            <p class="my-2 fs-3 fw-bold" style="color: var(--accent);">480.000đ</p>
-                                        </div>
-                                    </div>
-                                    <RouterLink to="/thanhtoan" class="btn-find d-block mt-3" style="width: fit-content; padding: 16px 24px;">Thanh toán</RouterLink>
-                                </div>
-                            </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="cart-summary">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Số lượng sản phẩm:</span>
+                            <span>{{ itemCount }}</span>
                         </div>
+                        <div class="d-flex justify-content-between mb-3">
+                            <span class="fw-bold">Tổng tiền:</span>
+                            <span class="fw-bold">{{ cartTotal.toLocaleString('vi-VN') }}đ</span>
+                        </div>
+                        <button @click="checkout" class="btn-checkout w-100">Thanh toán</button>
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </div>
 </template>
+
+<style scoped>
+.cart-item-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+}
+
+.quantity-btn {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f1f1f1;
+    border: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.quantity-input {
+    width: 50px;
+    height: 30px;
+    text-align: center;
+    border: 1px solid #ddd;
+    margin: 0 5px;
+}
+
+.btn-remove {
+    background: none;
+    border: none;
+    color: #dc3545;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+.btn-primary, .btn-outline, .btn-checkout {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 1.4rem;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: var(--primary);
+    border: 1px solid var(--primary);
+}
+
+.btn-checkout {
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+}
+
+.cart-summary {
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    padding: 20px;
+    font-size: 1.5rem;
+}
+
+.table {
+    font-size: 1.4rem;
+}
+
+th, td {
+    vertical-align: middle;
+}
+</style>

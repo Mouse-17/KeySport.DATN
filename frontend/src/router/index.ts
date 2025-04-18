@@ -121,14 +121,14 @@ const routeuser = [
     component: () => import('../views/NewsView.vue'),
   },
   {
-    path: '/chitietsanpham/:id',
+    path: '/sanpham/:id',
     name: 'Chi tiết sản phẩm',
     component: () => import('../views/ProductDetailView.vue'),
   },
   {
     path: '/giohang',
-    name: 'Giỏ hàng',
-    component: () => import('../views/CartView.vue'),
+    name: 'cart',
+    component: () => import('../views/CartView.vue')
   },
   {
     path: '/thanhtoan',
@@ -136,7 +136,7 @@ const routeuser = [
     component: () => import('../views/PayView.vue'),
   },
   {
-    path: '/bookingchitiet/:id',
+    path: '/san/:id',
     name: 'Chi tiết booking',
     component: () => import('../views/BookingDetailView.vue'),
   },
