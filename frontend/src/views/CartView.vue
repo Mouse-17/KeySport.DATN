@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue';
+import { ref, watch, onMounted } from "vue";
+import { onClickOutside } from "@vueuse/core";
+import { RouterLink } from "vue-router";
 
 interface CartItem {
     id: number;

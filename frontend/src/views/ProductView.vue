@@ -320,9 +320,9 @@
         
         // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa (cùng id, size, color)
         const existingItemIndex = cart.findIndex((item: any) => 
-            item.id === cartItem.id && 
-            item.size === cartItem.size && 
-            item.color === cartItem.color
+            item.id == cartItem.id && 
+            item.size == cartItem.size && 
+            item.color == cartItem.color
         );
         
         if (existingItemIndex !== -1) {

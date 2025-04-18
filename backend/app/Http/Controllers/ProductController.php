@@ -171,14 +171,7 @@ class ProductController extends Controller
     public function showdetail($id)
     {
         try {
-            $productdetail = SanPham::with([
-                'danhMuc', 
-                'thuongHieu',
-                'san_pham_mau_size',
-                'san_pham_mau_size.mau',
-                'san_pham_mau_size.size'
-            ])->find($id);
-            
+            $productdetail = SanPham::with(['danhMuc', 'thuongHieu','san_pham_mau_size'])->find($id);
             if (!$productdetail) {
                 return response()->json([
                     'status' => 'error',
