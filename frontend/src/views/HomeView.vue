@@ -249,12 +249,12 @@
                 <template v-if="yard_store.length > 0">
                     <div v-for="yard in yard_store.slice(0, 4)" :key="yard.id" class="col-12 col-lg-3 col-md-6 p-0">
                         <div class="yard">
-                            <div>
-                                <img :src="'/public/img/san/' + yard.Hinh_anh"  :alt="yard.Ten_san" style="width: 100%;">
-                            </div>
+                            <a :href="`/san/${yard.id}`" class="link-img-p">
+                                        <img :src="'/public/img/san/' + yard.Hinh_anh"  :alt="yard.Ten_san" style="width: 100%;">
+                                    </a>
                             <div class="yard-infor">
                                 <div class="yard-infor-content">
-                                    <h2 class="m-0 title-yard">{{ yard.Ten_san }}</h2>
+                                    <a :href="`/san/${yard.id}`" class="m-0 title-product fs-3">{{ yard.Ten_san }}</a>
                                     <div class="d-flex align-items-center gap-2 pt-1 pb-2">
                                         <i v-for="star in 5" :key="star" 
                                            class="bi bi-star-fill color-star fs-4"
@@ -270,7 +270,7 @@
                                         <i class="bi bi-door-open"></i>
                                         <p class="custom-open m-0">{{ yard.Trang_thai === 1 ? 'Đang mở cửa' : 'Đóng cửa' }}</p>
                                     </div>
-                                    <a href="#" class="btn-booknow">Đặt ngay</a>
+                                    <a :href="`/san/${yard.id}`" class="btn-booknow">Đặt ngay</a>
                                 </div>
                             </div>
                         </div>
