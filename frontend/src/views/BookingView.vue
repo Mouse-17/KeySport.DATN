@@ -263,7 +263,7 @@
                             <div v-for="yard in yard_store" :key="yard.id" class="col-12 col-lg-4 col-md-6 p-0">
                                 <div class="yard">
                                     <a :href="`/san/${yard.id}`" class="link-img-p">
-                                        <img :src="'/public/img/san/' + yard.Hinh_anh"  :alt="yard.Ten_san" style="width: 100%;">
+                                        <img :src="'/public/img/san/' + yard.Hinh_anh" :alt="yard.Ten_san" style="width: 100%; border-radius: 12px 12px 0 0;">
                                     </a>
                                     <div class="yard-infor">
                                         <div class="yard-infor-content">

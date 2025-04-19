@@ -15,9 +15,6 @@ class ThuongHieu extends Model
 
     protected $fillable = [
         'ten_thuong_hieu',
-        'mo_ta',
-        'logo',
-        'trang_thai'
     ];
 
     public function sanPham()

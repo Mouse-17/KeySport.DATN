@@ -28,6 +28,8 @@ Route::get('/san-pho-bien', [ApiController::class, 'popularYard']);
 
 Route::get('/sanpham', [ProductController::class, 'showListProduct']);
 Route::get('/sanpham/{id}', [ProductController::class, 'showdetail']);
+Route::get('/sanphambanchay', [ProductController::class, 'bestseller']);
+Route::match(['get', 'post'], '/sanpham', [ProductController::class, 'showListProduct']);
 
 Route::apiResource('san', SanController::class);
 Route::get('/san', [SanController::class, 'showListYard']);
