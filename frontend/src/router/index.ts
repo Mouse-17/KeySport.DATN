@@ -122,13 +122,13 @@ const routeuser = [
   },
   {
     path: '/sanpham/:id',
-    name: 'ProductDetail',
-    component: () => import('../views/ProductDetailView.vue')
+    name: 'Chi tiết sản phẩm',
+    component: () => import('../views/ProductDetailView.vue'),
   },
   {
     path: '/giohang',
-    name: 'Giỏ hàng',
-    component: () => import('../views/CartView.vue'),
+    name: 'cart',
+    component: () => import('../views/CartView.vue')
   },
   {
     path: '/thanhtoan',
@@ -137,8 +137,8 @@ const routeuser = [
   },
   {
     path: '/san/:id',
-    name: 'YardDetail',
-    component: () => import('../views/BookingDetailView.vue')
+    name: 'Chi tiết booking',
+    component: () => import('../views/BookingDetailView.vue'),
   },
 
   // chủ sân

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+
+    import { onMounted, ref, computed } from 'vue';
     import { onMounted, ref } from 'vue';
     import { useRoute } from 'vue-router';
     import type { Product } from '../stores/product';
@@ -10,6 +12,50 @@
 
     const handleTabClick = (tab: string) => {
         activeTab.value = tab;
+    };
+
+
+    // Lọc màu sắc không trùng lặp
+    const uniqueColors = computed(() => {
+        if (!product_store.value?.san_pham_mau_size) return [];
+        
+        // Lấy danh sách ID_Mau không trùng lặp
+        const uniqueMauIds = [...new Set(product_store.value.san_pham_mau_size.map(item => item.ID_Mau))];
+        return uniqueMauIds;
+    });
+
+    // Lọc kích thước không trùng lặp
+    const uniqueSizes = computed(() => {
+        if (!product_store.value?.san_pham_mau_size) return [];
+        
+        // Lấy danh sách ID_Kichthuoc không trùng lặp
+        const uniqueSizeIds = [...new Set(product_store.value.san_pham_mau_size.map(item => item.ID_Kichthuoc))];
+        return uniqueSizeIds;
+    });
+
+    const fetchProduct = async () => {
+        try {
+            const response = await fetch(`http://localhost:8000/api/sanpham/${route.params.id}`);
+            const data = await response.json();
+            if (data.status == 'success') {
+                product_store.value = data.data;
+                console.log('Sản phẩm:', product_store.value);
+                
+                // Kiểm tra cấu trúc dữ liệu mau và size
+                if (product_store.value?.san_pham_mau_size && product_store.value.san_pham_mau_size.length > 0) {
+                    console.log('Mẫu Màu Size:', product_store.value.san_pham_mau_size);
+                    product_store.value.san_pham_mau_size.forEach((item, index) => {
+                        console.log(`Item ${index}:`, item);
+                        console.log(`Màu ID:`, item.ID_Mau);
+                        console.log(`Size ID:`, item.ID_Kichthuoc);
+                        console.log(`Màu:`, item.mau);
+                        console.log(`Size:`, item.size);
+                    });
+                }
+            }
+        } catch (error) {
+            console.error('Lỗi khi tải sản phẩm:', error);
+        }
     };
 
     const fetchProduct = async () => {
@@ -56,12 +102,44 @@
                                 <strong style="color:var(--accent); font-size: 1.9rem;">{{ product_store.Gia.toLocaleString('vi-VN') }}đ</strong>
                             </p>
                             <div class="d-flex align-items-center gap-2 mt-2 mb-3">
+
+                                <template v-for="star in 5" :key="star">
+                                    <i 
+                                        class="bi bi-star-fill" 
+                                        :class="star <= (product_store.so_sao || 0) ? 'color-star' : 'color-star-gray'"
+                                    ></i>
+                                </template>
+                                <p class="m-0 me-1 fs-3 fw-bold" style="color: var(--colortext1);">{{ product_store.so_sao || 0 }}</p>
                                 <i class="bi bi-star-fill color-star"></i>
                                 <p class="m-0 me-1 fs-3 fw-bold" style="color: var(--colortext1);">{{ product_store.diem_danh_gia || 0 }}</p>
                                 <i class="bi bi-dot fs-2" style="color: var(--colortext2);"></i>
                                 <a href="#" class="m-0 fs-4 fw-regular fst-italic rating-link-view">Đánh giá ({{ product_store.tong_danh_gia || 0 }})</a>
                             </div>
                             <p class="product-desc">{{ product_store.Mo_ta }}</p>
+
+                            <template v-if="product_store.san_pham_mau_size && product_store.san_pham_mau_size.length > 0">
+                                <h5 class="mt-4 fs-4">Màu sắc:</h5>
+                                <div class="color-options mt-3">
+                                    <div 
+                                        v-for="(colorId, index) in uniqueColors" 
+                                        :key="'color-'+index" 
+                                        class="color-option"
+                                        :style="{ backgroundColor: '#'+colorId }"
+
+                                    >
+                                        Màu ID: {{ colorId }}
+                                    </div>
+                                </div>
+                                
+                                <h5 class="mt-4 fs-4">Size:</h5>
+                                <div class="size-options mt-3">
+                                    <div 
+                                        v-for="(sizeId, index) in uniqueSizes" 
+                                        :key="'size-'+index" 
+                                        class="fs-4"
+                                    >
+                                        {{ sizeId }}
+                                    </div>
                             <template v-if="product_store.mau_sac && product_store.mau_sac.length > 0">
                                 <h5 class="mt-4 fs-4">Màu sắc:</h5>
                                 <div class="color-options mt-3">
@@ -97,6 +175,8 @@
                 <ul class="d-flex list-unstyled detail-infor__list">
                     <li 
                         class="detail-infor__desc-rating" 
+
+                        :class="{ 'desc-detail__seleted': activeTab == 'description' }"
                         :class="{ 'desc-detail__seleted': activeTab === 'description' }"
                         @click="handleTabClick('description')"
                     >
@@ -104,6 +184,8 @@
                     </li>
                     <li 
                         class="detail-infor__desc-rating"
+
+                        :class="{ 'desc-detail__seleted': activeTab == 'reviews' }"
                         :class="{ 'desc-detail__seleted': activeTab === 'reviews' }"
                         @click="handleTabClick('reviews')"
                     >
@@ -497,4 +579,33 @@
             <span class="visually-hidden">Đang tải...</span>
         </div>
     </div>
+
 </template>
+
+<style scoped>
+.color-star {
+    color: var(--hover2);
+}
+
+.color-star-gray {
+    color: #ddd;
+}
+
+.color-option {
+    display: inline-block;
+    padding: 5px 10px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.color-option:hover {
+    border-color: var(--primary);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+</style>
+</template>
+

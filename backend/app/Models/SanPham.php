@@ -45,4 +45,5 @@ class SanPham extends Model
     {
         return $this->belongsTo(ThuongHieu::class, 'id_thuonghieu');
     }
+
 } 
