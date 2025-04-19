@@ -140,12 +140,6 @@ const routeuser = [
     name: 'Chi tiết booking',
     component: () => import('../views/BookingDetailView.vue'),
   },
-  {
-    path: "/booking-detail/:id",
-    name: "BookingDetail",
-    component: () => import("../views/BookingDetailView.vue"),
-    meta: { hideHeaderFooter: false }
-  },
 
   // chủ sân
   {
