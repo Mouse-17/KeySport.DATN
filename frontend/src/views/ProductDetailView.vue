@@ -1,14 +1,23 @@
 <script setup lang="ts">
 
     import { onMounted, ref, computed } from 'vue';
+<<<<<<< HEAD
+    import { useRoute, useRouter } from 'vue-router';
+=======
     import { onMounted, ref } from 'vue';
     import { useRoute } from 'vue-router';
+>>>>>>> 82a710640a3da49b2fd6566b76e3fff25a76a17c
     import type { Product } from '../stores/product';
 
     const route = useRoute();
+    const router = useRouter();
     const product_store = ref<Product | null>(null);
     const quantity = ref(1);
     const activeTab = ref('description'); // 'description' or 'reviews'
+    const selectedMau = ref<number | null>(null);
+    const selectedSize = ref<number | null>(null);
+    const addedToCart = ref(false);
+    const errorMessage = ref('');
 
     const handleTabClick = (tab: string) => {
         activeTab.value = tab;
@@ -32,6 +41,93 @@
         const uniqueSizeIds = [...new Set(product_store.value.san_pham_mau_size.map(item => item.ID_Kichthuoc))];
         return uniqueSizeIds;
     });
+
+    // Lấy tên màu dựa trên ID_Mau
+    const getMauName = (mauId) => {
+        if (!product_store.value?.san_pham_mau_size) return `Màu ${mauId}`;
+        
+        const mauItem = product_store.value.san_pham_mau_size.find(item => item.ID_Mau === mauId);
+        return mauItem?.mau?.Ten_mau || `Màu ${mauId}`;
+    };
+
+    // Lấy tên size dựa trên ID_Kichthuoc
+    const getSizeName = (sizeId) => {
+        if (!product_store.value?.san_pham_mau_size) return `Size ${sizeId}`;
+        
+        const sizeItem = product_store.value.san_pham_mau_size.find(item => item.ID_Kichthuoc === sizeId);
+        return sizeItem?.size?.Ten_size || `Size ${sizeId}`;
+    };
+
+    // Interface cho giỏ hàng
+    interface CartItem {
+        id: number;
+        productId: number;
+        tenSanPham: string;
+        anhDaiDien: string;
+        gia: number;
+        soLuong: number;
+        mauId: number | null;
+        mauTen: string | null;
+        sizeId: number | null;
+        sizeTen: string | null;
+    }
+    
+    // Thêm vào giỏ hàng
+    const addToCart = () => {
+        // Kiểm tra đã chọn màu và size chưa
+        if (!selectedMau.value) {
+            errorMessage.value = 'Vui lòng chọn màu sắc';
+            return;
+        }
+        
+        if (!selectedSize.value) {
+            errorMessage.value = 'Vui lòng chọn kích thước';
+            return;
+        }
+        
+        if (product_store.value) {
+            // Tạo item giỏ hàng
+            const cartItem: CartItem = {
+                id: Date.now(), // ID duy nhất cho item trong giỏ hàng
+                productId: product_store.value.id,
+                tenSanPham: product_store.value.Ten_san_pham,
+                anhDaiDien: product_store.value.Anh_dai_dien,
+                gia: product_store.value.Gia,
+                soLuong: quantity.value,
+                mauId: selectedMau.value,
+                mauTen: getMauName(selectedMau.value),
+                sizeId: selectedSize.value,
+                sizeTen: getSizeName(selectedSize.value)
+            };
+            
+            // Lấy giỏ hàng hiện tại từ localStorage
+            let cart: CartItem[] = [];
+            const cartData = localStorage.getItem('cart');
+            if (cartData) {
+                cart = JSON.parse(cartData);
+            }
+            
+            // Thêm sản phẩm vào giỏ hàng
+            cart.push(cartItem);
+            
+            // Lưu giỏ hàng vào localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+            
+            // Thông báo thành công
+            addedToCart.value = true;
+            errorMessage.value = '';
+            
+            // Tự động ẩn thông báo sau 3 giây
+            setTimeout(() => {
+                addedToCart.value = false;
+            }, 3000);
+        }
+    };
+
+    // Chuyển đến trang giỏ hàng
+    const goToCart = () => {
+        router.push('/giohang');
+    };
 
     const fetchProduct = async () => {
         try {
@@ -116,27 +212,46 @@
                                 <a href="#" class="m-0 fs-4 fw-regular fst-italic rating-link-view">Đánh giá ({{ product_store.tong_danh_gia || 0 }})</a>
                             </div>
                             <p class="product-desc">{{ product_store.Mo_ta }}</p>
+<<<<<<< HEAD
+                            
+                            <!-- Thông báo thành công -->
+                            <div v-if="addedToCart" class="alert alert-success" role="alert">
+                                Sản phẩm đã được thêm vào giỏ hàng!
+                                <a href="/giohang" class="view-cart-link">Xem giỏ hàng</a>
+                            </div>
+                            
+                            <!-- Thông báo lỗi -->
+                            <div v-if="errorMessage" class="alert alert-danger" role="alert">
+                                {{ errorMessage }}
+                            </div>
+                            
+=======
 
+>>>>>>> 82a710640a3da49b2fd6566b76e3fff25a76a17c
                             <template v-if="product_store.san_pham_mau_size && product_store.san_pham_mau_size.length > 0">
                                 <h5 class="mt-4 fs-4">Màu sắc:</h5>
                                 <div class="color-options mt-3">
                                     <div 
-                                        v-for="(colorId, index) in uniqueColors" 
-                                        :key="'color-'+index" 
+                                        v-for="colorId in uniqueColors" 
+                                        :key="'color-'+colorId" 
                                         class="color-option"
+                                        :class="{ 'active-option': selectedMau === colorId }"
                                         :style="{ backgroundColor: '#'+colorId }"
-
+                                        @click="selectedMau = colorId; errorMessage = '';"
                                     >
-                                        Màu ID: {{ colorId }}
+                                        <!-- Hiển thị giá trị color để dễ debug -->
+                                        {{ colorId }}
                                     </div>
                                 </div>
                                 
                                 <h5 class="mt-4 fs-4">Size:</h5>
                                 <div class="size-options mt-3">
                                     <div 
-                                        v-for="(sizeId, index) in uniqueSizes" 
-                                        :key="'size-'+index" 
-                                        class="fs-4"
+                                        v-for="sizeId in uniqueSizes" 
+                                        :key="'size-'+sizeId" 
+                                        class="size-option"
+                                        :class="{'active-option': selectedSize == sizeId}"
+                                        @click="selectedSize = sizeId; errorMessage = '';"
                                     >
                                         {{ sizeId }}
                                     </div>
@@ -152,11 +267,12 @@
                                     <div v-for="(size, index) in product_store.kich_thuoc" :key="index" class="fs-4">{{ size }}</div>
                                 </div>
                             </template>
+                            
                             <div class="mt-4 d-flex align-items-center gap-4">
                                 <div>
                                     <input type="number" v-model="quantity" class="form-date product-quantity" name="quantity" min="1">
                                 </div>
-                                <a href="" class="btn-order">Thêm vào giỏ hàng</a>
+                                <a href="javascript:void(0)" class="btn-order" @click="addToCart">Thêm vào giỏ hàng</a>
                                 <div class="d-flex align-items-center gap-1 btn-add-wishlist">
                                     <div><i class="bi bi-heart-fill fs-3"></i></div>
                                     <div><i class="bi bi-facebook fs-3"></i></div>
@@ -592,7 +708,6 @@
 }
 
 .color-option {
-    display: inline-block;
     padding: 5px 10px;
     margin-right: 8px;
     margin-bottom: 8px;
@@ -606,6 +721,60 @@
     border-color: var(--primary);
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
+<<<<<<< HEAD
+
+.size-option {
+    padding: 5px 15px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.size-option:hover {
+    border-color: var(--primary);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.active-option {
+    border-color: var(--accent);
+    background-color: var(--accent);
+    color: white;
+}
+
+.alert {
+    padding: 12px 20px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+}
+
+.view-cart-link {
+    color: #155724;
+    text-decoration: underline;
+    margin-left: 5px;
+    font-weight: bold;
+}
+
+.view-cart-link:hover {
+    color: #0f3e19;
+}
+</style>
+=======
 </style>
 </template>
 
+>>>>>>> 82a710640a3da49b2fd6566b76e3fff25a76a17c

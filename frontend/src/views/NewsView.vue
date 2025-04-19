@@ -87,6 +87,59 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <!-- Video highlights -->
+                    <h2 class="section-title mt-4">VIDEO NỔI BẬT</h2>
+                    <div class="video-grid">
+                        <div class="video-item" @click="openVideoModal('https://www.youtube.com/watch?v=Ha-JIf0b2dY')">
+                            <div class="video-thumbnail">
+                                <img src="../../public/img/Picture6.png" alt="Video highlight">
+                                <div class="play-button">
+                                    <i class="bi bi-play-circle-fill"></i>
+                                </div>
+                                <span class="video-duration">5:20</span>
+                                <div class="video-overlay"></div>
+                            </div>
+                            <div class="video-info">
+                                <span class="video-category">Bóng đá</span>
+                                <h3>Top 10 pha bóng VLeague 2024</h3>
+                            </div>
+                        </div>
+                        <div class="video-item" @click="openVideoModal('https://www.youtube.com/watch?v=AOOEsT9Gb_c')">
+                            <div class="video-thumbnail">
+                                <img src="../../public/img/Picture7.png" alt="Video highlight">
+                                <div class="play-button">
+                                    <i class="bi bi-play-circle-fill"></i>
+                                </div>
+                                <span class="video-duration">8:23</span>
+                                <div class="video-overlay"></div>
+                            </div>
+                            <div class="video-info">
+                                <span class="video-category">Pickleball</span>
+                                <h3>Giải pickleball Championship 2024</h3>
+                            </div>
+                        </div>
+                        <div class="video-item" @click="openVideoModal('https://www.youtube.com/watch?v=8JJPZBEKKJw')">
+                            <div class="video-thumbnail">
+                                <img src="../../public/img/Picture1.png" alt="Video highlight">
+                                <div class="play-button">
+                                    <i class="bi bi-play-circle-fill"></i>
+                                </div>
+                                <span class="video-duration">9:35</span>
+                                <div class="video-overlay"></div>
+                            </div>
+                            <div class="video-info">
+                                <span class="video-category">Bóng đá Việt Nam</span>
+                                <h3>Highlight: Hà Nội FC 2-1 Hải Phòng FC</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="view-more-videos">
+                        <a href="/videos" class="view-all-videos-link">
+                            <span>Xem tất cả Video</span>
+                            <i class="bi bi-arrow-right-circle-fill"></i>
+                        </a>
+                    </div>
                 </div>
                 
                 <!-- Sidebar bên phải -->
@@ -255,79 +308,20 @@
             </div>
         </div>
         
-        <!-- Phần video highlight -->
-        <div class="box video-section">
-            <div class="video-header">
-                <div class="header-content">
-                    <div class="section-title-wrapper">
-                        <h2 class="section-title">VIDEO HIGHLIGHT</h2>
-                        <div class="title-decoration"></div>
-                    </div>
-                    <a href="/videos" class="view-all-link">
-                        <span>Xem tất cả</span>
-                        <i class="bi bi-arrow-right-circle-fill"></i>
-                    </a>
-                </div>
-            </div>
-            
-            <div class="video-container video-horizontal">
-                <div class="video-row">
-                    <div class="video-item">
-                        <div class="video-thumbnail">
-                            <img src="../../public/img/Picture1.png" alt="Video highlight">
-                            <div class="play-button">
-                                <i class="bi bi-play-circle-fill"></i>
-                            </div>
-                            <span class="video-duration">9:35</span>
-                            <div class="video-overlay"></div>
-                        </div>
-                        <div class="video-info">
-                            <span class="video-category">Bóng đá Việt Nam</span>
-                            <h3>Highlight: Hà Nội FC 2-1 Hải Phòng FC</h3>
-                        </div>
-                    </div>
-                    <div class="video-item">
-                        <div class="video-thumbnail">
-                            <img src="../../public/img/Picture5.png" alt="Video highlight">
-                            <div class="play-button">
-                                <i class="bi bi-play-circle-fill"></i>
-                            </div>
-                            <span class="video-duration">12:02</span>
-                            <div class="video-overlay"></div>
-                        </div>
-                        <div class="video-info">
-                            <span class="video-category">Cầu lông</span>
-                            <h3>Viktor Axelsen vs Lee Zii Jia</h3>
-                        </div>
-                    </div>
-                    <div class="video-item">
-                        <div class="video-thumbnail">
-                            <img src="../../public/img/Picture3.png" alt="Video highlight">
-                            <div class="play-button">
-                                <i class="bi bi-play-circle-fill"></i>
-                            </div>
-                            <span class="video-duration">15:45</span>
-                            <div class="video-overlay"></div>
-                        </div>
-                        <div class="video-info">
-                            <span class="video-category">Bóng chuyền</span>
-                            <h3>Top 10 pha bóng VLeague 2024</h3>
-                        </div>
-                    </div>
-                    <div class="video-item">
-                        <div class="video-thumbnail">
-                            <img src="../../public/img/Picture7.png" alt="Video highlight">
-                            <div class="play-button">
-                                <i class="bi bi-play-circle-fill"></i>
-                            </div>
-                            <span class="video-duration">8:23</span>
-                            <div class="video-overlay"></div>
-                        </div>
-                        <div class="video-info">
-                            <span class="video-category">Pickleball</span>
-                            <h3>Giải pickleball Championship 2024</h3>
-                        </div>
-                    </div>
+        <!-- Video Modal -->
+        <div v-if="showVideoModal" class="video-modal">
+            <div class="video-modal-overlay" @click="closeVideoModal"></div>
+            <div class="video-modal-content">
+                <button class="close-button" @click="closeVideoModal">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+                <div class="video-iframe-container">
+                    <iframe 
+                        :src="currentVideoUrl" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
                 </div>
             </div>
         </div>
@@ -471,39 +465,51 @@ export default {
             // Trạng thái tải
             loading: false,
             
-            // Thông tin API
-            apiBaseUrl: 'https://api.yoursportsapi.com', // Thay bằng API thực tế của bạn
-            apiKey: 'YOUR_API_KEY', // Thay bằng API key của bạn
-            
-            // Dữ liệu bảng xếp hạng mẫu (sẽ thay thế bằng dữ liệu từ API)
+            // Dữ liệu bảng xếp hạng
             rankings: {
                 'v-league': [
                     { id: 'hanoifc', name: 'Hà Nội FC', points: 30, stats: '9-3-2', form: ['W', 'W', 'D', 'L', 'W'] },
                     { id: 'hagl', name: 'HAGL', points: 28, stats: '8-4-2', form: ['W', 'W', 'W', 'D', 'L'] },
                     { id: 'slna', name: 'SLNA', points: 25, stats: '7-4-3', form: ['D', 'W', 'L', 'W', 'W'] },
                     { id: 'haiphong', name: 'Hải Phòng', points: 24, stats: '7-3-4', form: ['L', 'W', 'W', 'W', 'D'] },
-                    { id: 'thanhhoa', name: 'Thanh Hóa', points: 22, stats: '6-4-4', form: ['W', 'D', 'W', 'L', 'D'] },
-                    { id: 'binhdinh', name: 'Bình Định', points: 21, stats: '6-3-5', form: ['L', 'W', 'D', 'W', 'L'] },
-                    { id: 'viettel', name: 'Viettel', points: 19, stats: '5-4-5', form: ['D', 'L', 'W', 'D', 'W'] },
-                    { id: 'hcmc', name: 'TP.HCM', points: 17, stats: '4-5-5', form: ['L', 'L', 'D', 'W', 'D'] },
-                    { id: 'namdinh', name: 'Nam Định', points: 16, stats: '4-4-6', form: ['D', 'L', 'L', 'W', 'D'] },
-                    { id: 'quangnam', name: 'Quảng Nam', points: 14, stats: '3-5-6', form: ['L', 'D', 'L', 'D', 'W'] }
+                    { id: 'thanhhoa', name: 'Thanh Hóa', points: 22, stats: '6-4-4', form: ['W', 'D', 'W', 'L', 'D'] }
                 ],
                 'premier-league': [
                     { id: 'mancity', name: 'Man City', points: 32, stats: '10-2-1', form: ['W', 'W', 'W', 'D', 'W'] },
                     { id: 'liverpool', name: 'Liverpool', points: 31, stats: '10-1-2', form: ['W', 'W', 'L', 'W', 'W'] },
                     { id: 'arsenal', name: 'Arsenal', points: 29, stats: '9-2-2', form: ['D', 'W', 'W', 'W', 'L'] },
                     { id: 'tottenham', name: 'Tottenham', points: 26, stats: '8-2-3', form: ['L', 'W', 'W', 'W', 'D'] },
-                    { id: 'villa', name: 'Aston Villa', points: 25, stats: '8-1-4', form: ['W', 'L', 'W', 'L', 'W'] },
-                    { id: 'chelsea', name: 'Chelsea', points: 24, stats: '7-3-3', form: ['D', 'W', 'W', 'W', 'L'] },
-                    { id: 'newcastle', name: 'Newcastle', points: 22, stats: '7-1-5', form: ['W', 'L', 'W', 'L', 'L'] },
-                    { id: 'mufc', name: 'Man United', points: 20, stats: '6-2-5', form: ['W', 'L', 'L', 'W', 'D'] },
-                    { id: 'brighton', name: 'Brighton', points: 18, stats: '5-3-5', form: ['D', 'L', 'W', 'D', 'L'] },
-                    { id: 'westham', name: 'West Ham', points: 17, stats: '5-2-6', form: ['L', 'D', 'L', 'W', 'L'] }
+                    { id: 'villa', name: 'Aston Villa', points: 25, stats: '8-1-4', form: ['W', 'L', 'W', 'L', 'W'] }
                 ],
-                'la-liga': [],
-                'serie-a': []
-            }
+                'la-liga': [
+                    { id: 'realmadrid', name: 'Real Madrid', points: 33, stats: '10-3-0', form: ['W', 'W', 'D', 'W', 'W'] },
+                    { id: 'barcelona', name: 'Barcelona', points: 30, stats: '9-3-1', form: ['D', 'W', 'W', 'W', 'D'] },
+                    { id: 'atletico', name: 'Atletico Madrid', points: 28, stats: '9-1-3', form: ['W', 'W', 'L', 'W', 'W'] },
+                    { id: 'girona', name: 'Girona', points: 24, stats: '7-3-3', form: ['L', 'W', 'D', 'W', 'L'] },
+                    { id: 'sociedad', name: 'Real Sociedad', points: 21, stats: '6-3-4', form: ['W', 'D', 'W', 'L', 'D'] }
+                ],
+                'serie-a': [
+                    { id: 'inter', name: 'Inter Milan', points: 29, stats: '9-2-2', form: ['W', 'D', 'W', 'W', 'W'] },
+                    { id: 'juventus', name: 'Juventus', points: 28, stats: '8-4-1', form: ['W', 'D', 'D', 'W', 'W'] },
+                    { id: 'napoli', name: 'Napoli', points: 27, stats: '8-3-2', form: ['D', 'W', 'W', 'L', 'W'] },
+                    { id: 'milan', name: 'AC Milan', points: 25, stats: '8-1-4', form: ['W', 'L', 'W', 'W', 'L'] },
+                    { id: 'atalanta', name: 'Atalanta', points: 23, stats: '7-2-4', form: ['W', 'W', 'L', 'W', 'D'] }
+                ]
+            },
+            
+            // News data
+            newsCategories: [
+                { id: 1, name: 'Bóng đá' },
+                { id: 2, name: 'Cầu lông' },
+                { id: 3, name: 'Bóng chuyền' }
+            ],
+            featuredNews: [],
+            latestNews: [],
+            popularNews: [],
+            
+            // Video Modal
+            showVideoModal: false,
+            currentVideoUrl: ''
         };
     },
     computed: {
@@ -520,262 +526,98 @@ export default {
             }
         }
     },
+    created() {
+        // Load user favorites from localStorage
+        const savedFavorites = localStorage.getItem('userFavoriteTeams');
+        if (savedFavorites) {
+            this.userFavorites = JSON.parse(savedFavorites);
+        }
+        
+        // Load display settings from localStorage
+        const savedSettings = localStorage.getItem('rankingsSettings');
+        if (savedSettings) {
+            const settings = JSON.parse(savedSettings);
+            this.showStats = settings.showStats;
+            this.showForm = settings.showForm;
+            this.teamsToShow = settings.teamsToShow;
+        }
+    },
     methods: {
         // Chọn giải đấu
         selectLeague(leagueId) {
             this.selectedLeague = leagueId;
-            this.fetchRankings();
-        },
-        
-        // Lấy dữ liệu bảng xếp hạng từ API thực tế
-        async fetchRankings() {
+            // Fake loading state
             this.loading = true;
-            
-            try {
-                // Hướng dẫn triển khai API thực tế
-                // 1. Sử dụng fetch hoặc axios để gọi API
-                const endpoint = `${this.apiBaseUrl}/standings/${this.selectedLeague}`;
-                
-                // 2. Thêm tham số và headers cần thiết
-                const params = new URLSearchParams({
-                    api_key: this.apiKey,
-                    league: this.selectedLeague,
-                    season: '2024-2025' // Hoặc season hiện tại
-                });
-                
-                // 3. Tùy chọn sử dụng axios (cần cài đặt trước)
-                // const response = await axios.get(`${endpoint}?${params}`);
-                // const data = response.data;
-                
-                // 4. Hoặc sử dụng fetch API (có sẵn trong browser)
-                const response = await fetch(`${endpoint}?${params}`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${this.apiKey}` // Tùy thuộc vào API
-                    }
-                });
-                
-                // 5. Xử lý dữ liệu trả về
-                if (response.ok) {
-                    const data = await response.json();
-                    
-                    // 6. Chuyển đổi định dạng dữ liệu từ API thành định dạng ứng dụng
-                    const formattedData = data.standings.map(team => {
-                        return {
-                            id: team.team_id,
-                            name: team.team_name,
-                            points: team.points,
-                            stats: `${team.wins}-${team.draws}-${team.losses}`,
-                            form: this.convertFormArray(team.form) // Chuyển đổi định dạng form
-                        };
-                    });
-                    
-                    // 7. Cập nhật state với dữ liệu mới
-                    this.rankings[this.selectedLeague] = formattedData;
-                }
-                
-                // MÔ PHỎNG API CALL - Chỉ để demo, xóa khi triển khai thực tế
-                await new Promise(resolve => setTimeout(resolve, 1000));
-                
-                // Dữ liệu mẫu cho La Liga và Serie A
-                if (this.selectedLeague === 'la-liga' && !this.rankings['la-liga'].length) {
-                    this.rankings['la-liga'] = [
-                        { id: 'realmadrid', name: 'Real Madrid', points: 33, stats: '10-3-0', form: ['W', 'W', 'D', 'W', 'W'] },
-                        { id: 'barcelona', name: 'Barcelona', points: 30, stats: '9-3-1', form: ['D', 'W', 'W', 'W', 'D'] },
-                        { id: 'atletico', name: 'Atletico Madrid', points: 28, stats: '9-1-3', form: ['W', 'W', 'L', 'W', 'W'] },
-                        { id: 'girona', name: 'Girona', points: 24, stats: '7-3-3', form: ['L', 'W', 'D', 'W', 'L'] },
-                        { id: 'sociedad', name: 'Real Sociedad', points: 21, stats: '6-3-4', form: ['W', 'D', 'W', 'L', 'D'] }
-                    ];
-                } else if (this.selectedLeague === 'serie-a' && !this.rankings['serie-a'].length) {
-                    this.rankings['serie-a'] = [
-                        { id: 'inter', name: 'Inter Milan', points: 29, stats: '9-2-2', form: ['W', 'D', 'W', 'W', 'W'] },
-                        { id: 'juventus', name: 'Juventus', points: 28, stats: '8-4-1', form: ['W', 'D', 'D', 'W', 'W'] },
-                        { id: 'napoli', name: 'Napoli', points: 27, stats: '8-3-2', form: ['D', 'W', 'W', 'L', 'W'] },
-                        { id: 'milan', name: 'AC Milan', points: 25, stats: '8-1-4', form: ['W', 'L', 'W', 'W', 'L'] },
-                        { id: 'atalanta', name: 'Atalanta', points: 23, stats: '7-2-4', form: ['W', 'W', 'L', 'W', 'D'] }
-                    ];
-                }
-            } catch (error) {
-                console.error('Error fetching rankings:', error);
-                // Xử lý lỗi - hiển thị thông báo cho người dùng
-                this.handleApiError(error);
-            } finally {
+            setTimeout(() => {
                 this.loading = false;
-            }
+            }, 500);
         },
         
-        // Hàm chuyển đổi dữ liệu "form" từ API thành định dạng ứng dụng
-        convertFormArray(formString) {
-            // Giả sử API trả về form dạng "WDLWW"
-            if (!formString) return Array(5).fill('N'); // N = No data
+        // Lưu thiết lập người dùng
+        saveSettings() {
+            this.showSettings = false;
             
-            const formArray = [];
-            for (let i = 0; i < Math.min(formString.length, 5); i++) {
-                formArray.push(formString[i]);
-            }
-            
-            // Đảm bảo luôn có 5 phần tử
-            while (formArray.length < 5) {
-                formArray.push('N');
-            }
-            
-            return formArray;
+            // Lưu thiết lập vào localStorage
+            localStorage.setItem('rankingsSettings', JSON.stringify({
+                showStats: this.showStats,
+                showForm: this.showForm,
+                teamsToShow: this.teamsToShow,
+                userFavorites: this.userFavorites
+            }));
         },
         
-        // Xử lý lỗi từ API
-        handleApiError(error) {
-            // 1. Log lỗi để debug
-            console.error('API Error Details:', error);
-            
-            // 2. Hiển thị thông báo người dùng thân thiện
-            // Bạn có thể sử dụng thư viện toast notification hoặc alert
-            alert('Không thể tải dữ liệu bảng xếp hạng. Vui lòng thử lại sau.');
-            
-            // 3. Báo cáo lỗi đến hệ thống monitoring (nếu có)
-            // this.reportErrorToMonitoring(error);
-            
-            // 4. Sử dụng dữ liệu cache nếu có
-            if (localStorage.getItem(`rankings_${this.selectedLeague}`)) {
-                try {
-                    this.rankings[this.selectedLeague] = JSON.parse(
-                        localStorage.getItem(`rankings_${this.selectedLeague}`)
-                    );
-                } catch (e) {
-                    // Ignore parse errors
-                }
-            }
-        },
-        
-        // Lưu dữ liệu vào cache
-        saveRankingsToCache() {
-            // Lưu dữ liệu hiện tại vào localStorage làm cache
-            localStorage.setItem(
-                `rankings_${this.selectedLeague}`,
-                JSON.stringify(this.rankings[this.selectedLeague])
-            );
-            
-            // Lưu thời gian cache
-            localStorage.setItem(
-                `rankings_${this.selectedLeague}_timestamp`,
-                Date.now().toString()
-            );
-        },
-        
-        // Kiểm tra dữ liệu cache có hết hạn chưa
-        isCacheExpired(leagueId) {
-            const timestamp = localStorage.getItem(`rankings_${leagueId}_timestamp`);
-            if (!timestamp) return true;
-            
-            // Cache hết hạn sau 1 giờ (3600000 ms)
-            const expirationTime = 3600000;
-            return Date.now() - parseInt(timestamp) > expirationTime;
-        },
-        
-        // Toggle đội yêu thích
+        // Chuyển đổi giữa yêu thích/không yêu thích đội bóng
         toggleFavorite(teamId) {
-            if (this.userFavorites.includes(teamId)) {
-                // Nếu đã là yêu thích, xóa khỏi danh sách
-                this.userFavorites = this.userFavorites.filter(id => id !== teamId);
-            } else {
-                // Thêm vào danh sách yêu thích
+            const index = this.userFavorites.indexOf(teamId);
+            if (index === -1) {
                 this.userFavorites.push(teamId);
+            } else {
+                this.userFavorites.splice(index, 1);
             }
             
             // Lưu vào localStorage
-            localStorage.setItem('userFavorites', JSON.stringify(this.userFavorites));
+            localStorage.setItem('userFavoriteTeams', JSON.stringify(this.userFavorites));
         },
         
-        // Tiêu đề hiển thị khi hover vào chỉ số phong độ
+        // Lấy tiêu đề khi hover vào indicator phong độ
         getFormTitle(result) {
             switch(result) {
                 case 'W': return 'Thắng';
                 case 'D': return 'Hòa';
                 case 'L': return 'Thua';
-                default: return '';
+                default: return 'Không rõ';
             }
         },
         
-        // Lưu cài đặt hiển thị
-        saveSettings() {
-            // Lưu cài đặt vào localStorage
-            localStorage.setItem('rankingsSettings', JSON.stringify({
-                showStats: this.showStats,
-                showForm: this.showForm,
-                teamsToShow: this.teamsToShow
-            }));
-            
-            this.showSettings = false;
-        },
-        
-        // Lấy URL đầy đủ cho bảng xếp hạng
+        // Lấy URL xem bảng xếp hạng đầy đủ
         getLeagueUrl() {
-            const leagueUrls = {
-                'v-league': '/tournaments/v-league/rankings',
-                'premier-league': '/tournaments/premier-league/rankings',
-                'la-liga': '/tournaments/la-liga/rankings',
-                'serie-a': '/tournaments/serie-a/rankings'
-            };
-            
-            return leagueUrls[this.selectedLeague] || '/tournaments';
+            return `/bxh/${this.selectedLeague}`;
         },
         
-        // Tải cài đặt từ localStorage
-        loadSettings() {
-            try {
-                // Tải cài đặt
-                const settings = JSON.parse(localStorage.getItem('rankingsSettings'));
-                if (settings) {
-                    this.showStats = settings.showStats;
-                    this.showForm = settings.showForm;
-                    this.teamsToShow = settings.teamsToShow;
-                }
-                
-                // Tải đội yêu thích
-                const favorites = JSON.parse(localStorage.getItem('userFavorites'));
-                if (favorites) {
-                    this.userFavorites = favorites;
-                }
-            } catch (error) {
-                console.error('Error loading settings:', error);
-            }
+        // Fake loading bảng xếp hạng - replaced API call
+        fetchRankings() {
+            this.loading = true;
+            setTimeout(() => {
+                this.loading = false;
+            }, 800);
         },
         
-        // Lập lịch cập nhật tự động
-        setupAutoRefresh() {
-            // Tự động cập nhật dữ liệu mỗi 15 phút
-            this.autoRefreshInterval = setInterval(() => {
-                this.fetchRankings();
-            }, 15 * 60 * 1000); // 15 phút
-        }
-    },
-    created() {
-        // Tải cài đặt khi component được tạo
-        this.loadSettings();
-        
-        // Kiểm tra cache trước khi tải dữ liệu mới
-        if (this.isCacheExpired(this.selectedLeague)) {
-            // Cache hết hạn, tải dữ liệu mới
-            this.fetchRankings();
-        } else {
-            // Sử dụng dữ liệu từ cache
-            try {
-                this.rankings[this.selectedLeague] = JSON.parse(
-                    localStorage.getItem(`rankings_${this.selectedLeague}`)
-                );
-            } catch (e) {
-                // Nếu có lỗi khi đọc cache, tải dữ liệu mới
-                this.fetchRankings();
+        // Open Video Modal
+        openVideoModal(url) {
+            // Convert YouTube watch URL to embed URL if needed
+            if (url.includes('watch?v=')) {
+                const videoId = url.split('watch?v=')[1].split('&')[0];
+                this.currentVideoUrl = `https://www.youtube.com/embed/${videoId}`;
+            } else {
+                this.currentVideoUrl = url;
             }
-        }
+            this.showVideoModal = true;
+        },
         
-        // Thiết lập tự động cập nhật
-        this.setupAutoRefresh();
-    },
-    beforeDestroy() {
-        // Dọn dẹp interval khi component bị hủy
-        if (this.autoRefreshInterval) {
-            clearInterval(this.autoRefreshInterval);
+        // Close Video Modal
+        closeVideoModal() {
+            this.showVideoModal = false;
+            this.currentVideoUrl = '';
         }
     }
 };
@@ -1394,52 +1236,34 @@ export default {
 }
 
 .video-item {
-    flex: 1;
-    background-color: white;
-    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.3s;
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    transition: all 0.3s ease;
-    margin: 0;
+    border-radius: 8px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
     width: 100%;
-    max-width: none;
-    position: relative;
 }
 
 .video-item:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .video-thumbnail {
     position: relative;
-    cursor: pointer;
     overflow: hidden;
-}
-
-.video-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(0deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 60%);
-    transition: all 0.3s ease;
-}
-
-.video-item:hover .video-overlay {
-    background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 60%);
+    border-radius: 8px 8px 0 0;
 }
 
 .video-thumbnail img {
     width: 100%;
-    height: 180px;
+    height: 220px;
     object-fit: cover;
-    transition: transform 0.5s ease;
+    transition: transform 0.3s;
 }
 
 .video-item:hover .video-thumbnail img {
-    transform: scale(1.08);
+    transform: scale(1.05);
 }
 
 .play-button {
@@ -1447,27 +1271,16 @@ export default {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgba(10, 30, 92, 0.7);
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0.9;
-    transition: all 0.3s ease;
+    color: white;
+    font-size: 3rem;
+    opacity: 0.8;
+    transition: opacity 0.3s, transform 0.2s;
     z-index: 2;
 }
 
 .video-item:hover .play-button {
-    background-color: rgba(198, 151, 73, 0.9);
-    transform: translate(-50%, -50%) scale(1.15);
-    box-shadow: 0 0 20px rgba(198, 151, 73, 0.6);
-}
-
-.play-button i {
-    font-size: 24px;
-    color: white;
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
 }
 
 .video-duration {
@@ -1476,116 +1289,167 @@ export default {
     right: 10px;
     background-color: rgba(0, 0, 0, 0.7);
     color: white;
-    font-size: 0.8rem;
-    padding: 3px 8px;
+    padding: 3px 6px;
     border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 500;
     z-index: 2;
 }
 
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.5));
+    opacity: 0.5;
+    transition: opacity 0.3s;
+}
+
+.video-item:hover .video-overlay {
+    opacity: 0.3;
+}
+
 .video-info {
-    padding: 15px;
-    position: relative;
+    padding: 20px;
+    background-color: white;
 }
 
 .video-category {
-    display: inline-block;
-    background-color: #0A1E5C;
-    color: white;
-    font-size: 0.7rem;
-    font-weight: 600;
-    padding: 3px 8px;
-    border-radius: 4px;
-    margin-bottom: 8px;
-    transition: all 0.2s ease;
-}
-
-.video-item:hover .video-category {
-    background-color: #C69749;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #ff4d4d;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 5px;
 }
 
 .video-info h3 {
-    margin: 0;
     font-size: 1rem;
+    margin: 0;
     font-weight: 600;
-    color: #0A1E5C;
+    color: #333;
     line-height: 1.4;
-    transition: all 0.2s ease;
 }
 
-.video-item:hover .video-info h3 {
-    color: #C69749;
+/* Video Modal */
+.video-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Responsive cho layout video */
-@media (max-width: 1200px) {
-    .video-section {
-        max-width: 90%;
-    }
-    
-    .video-row {
-        max-width: none;
-        flex-wrap: wrap;
-    }
-    
-    .video-item {
-        flex: 0 0 calc(50% - 10px);
-        margin-bottom: 20px;
-    }
+.video-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    cursor: pointer;
 }
 
-@media (max-width: 768px) {
-    .video-section {
-        padding: 20px 15px;
-    }
-    
-    .video-container {
-        padding: 0 10px;
-    }
-    
-    .video-row {
-        flex-direction: column;
-    }
-    
-    .video-item {
-        flex: 0 0 100%;
-    }
-    
-    .video-thumbnail img {
-        height: 200px;
+.video-modal-content {
+    position: relative;
+    width: 85%;
+    max-width: 900px;
+    z-index: 1001;
+}
+
+.close-button {
+    position: absolute;
+    top: -40px;
+    right: -10px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 1002;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.close-button:hover {
+    opacity: 1;
+}
+
+.video-iframe-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    height: 0;
+    overflow: hidden;
+}
+
+.video-iframe-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 8px;
+}
+
+/* Media Queries */
+@media (max-width: 992px) {
+    .video-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media (max-width: 576px) {
-    .video-section {
-        padding: 15px 10px;
+    .video-grid {
+        grid-template-columns: 1fr;
     }
     
-    .section-title {
-        font-size: 1.3rem;
+    .video-modal-content {
+        width: 95%;
     }
     
-    .view-all-link {
-        font-size: 1.2rem;
-        padding: 6px 16px;
-        white-space: nowrap;
+    .close-button {
+        right: 0;
     }
-    
-    .view-all-link i {
-        font-size: 1.3rem;
-    }
-    
-    .video-thumbnail img {
-        height: 180px;
-    }
-    
-    .play-button {
-        width: 40px;
-        height: 40px;
-    }
-    
-    .play-button i {
-        font-size: 20px;
-    }
+}
+
+.view-more-videos {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.view-all-videos-link {
+    color: #333;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.4rem;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 28px;
+    border-radius: 50px;
+    background-color: #f5f5f5;
+    border: 1px solid #e0e0e0;
+}
+
+.view-all-videos-link i {
+    margin-left: 12px;
+    color: #0A1E5C;
+    font-size: 1.5rem;
+}
+
+.view-all-videos-link:hover {
+    color: #C69749;
+    text-decoration: underline;
+    background-color: rgba(198, 151, 73, 0.2);
+    box-shadow: 0 2px 8px rgba(198, 151, 73, 0.3);
 }
 
 .text-center {
@@ -2363,5 +2227,207 @@ export default {
 
 .section-title-wrapper.center {
     text-align: center;
+}
+
+/* Video grid styles */
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    max-width: 100%;
+}
+
+.video-item {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    border: 1px solid #eaeaea;
+}
+
+.video-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.video-thumbnail {
+    position: relative;
+    overflow: hidden;
+}
+
+.video-thumbnail img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.video-item:hover .video-thumbnail img {
+    transform: scale(1.05);
+}
+
+.video-info {
+    padding: 15px;
+    background-color: white;
+}
+
+.play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 2.5rem;
+    opacity: 0.9;
+    transition: all 0.2s ease;
+    z-index: 2;
+    background-color: rgba(10, 30, 92, 0.7);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.video-item:hover .play-button {
+    background-color: #C69749;
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+.video-duration {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    z-index: 2;
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.4));
+    opacity: 0.5;
+    transition: opacity 0.3s;
+}
+
+.video-item:hover .video-overlay {
+    opacity: 0.3;
+}
+
+.video-category {
+    display: inline-block;
+    background-color: #0A1E5C;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.video-info h3 {
+    font-size: 1rem;
+    margin: 0;
+    font-weight: 600;
+    color: #0A1E5C;
+    line-height: 1.4;
+    transition: color 0.2s ease;
+}
+
+.video-item:hover .video-category {
+    background-color: #C69749;
+}
+
+.video-item:hover .video-info h3 {
+    color: #C69749;
+}
+
+/* Responsive video grid */
+@media (max-width: 992px) {
+    .video-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .video-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .video-thumbnail img {
+        height: 200px;
+    }
+}
+
+.view-more-videos {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.view-all-videos-link {
+    color: #333;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 18px;
+    border-radius: 50px;
+    background-color: #f5f5f5;
+    border: 1px solid #e0e0e0;
+}
+
+.view-all-videos-link i {
+    margin-left: 8px;
+    color: #0A1E5C;
+}
+
+.view-all-videos-link:hover {
+    background-color: #0A1E5C;
+    color: white;
+    border-color: #0A1E5C;
+}
+
+.view-all-videos-link:hover i {
+    color: white;
+}
+
+/* Section title styling update */
+.section-title-wrapper {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.section-title {
+    color: #0A1E5C;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #C69749;
+    display: inline-block;
+}
+
+/* Fix for mobile layouts */
+@media (max-width: 768px) {
+    .video-grid {
+        padding: 0;
+    }
 }
 </style>

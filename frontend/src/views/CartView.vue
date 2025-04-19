@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, onMounted } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { onClickOutside } from "@vueuse/core";
 import { RouterLink } from "vue-router";
 
@@ -12,6 +12,8 @@ interface CartItem {
     soLuong: number;
     mauId: number | null;
     sizeId: number | null;
+    mauTen?: string;
+    sizeTen?: string;
 }
 
 const cartItems = ref<CartItem[]>([]);
@@ -113,8 +115,8 @@ onMounted(() => {
                                          class="cart-item-image me-3">
                                     <div>
                                         <h5 class="mb-1">{{ item.tenSanPham }}</h5>
-                                        <div v-if="item.mauId">Màu: {{ item.mauId }}</div>
-                                        <div v-if="item.sizeId">Size: {{ item.sizeId }}</div>
+                                        <div v-if="item.mauId">Mã màu: {{ item.mauId }}</div>
+                                        <div v-if="item.sizeId">Mã size: {{ item.sizeId }}</div>
                                     </div>
                                 </div>
                             </td>
@@ -245,5 +247,12 @@ onMounted(() => {
 
 th, td {
     vertical-align: middle;
+}
+
+.color-display {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
 }
 </style>
