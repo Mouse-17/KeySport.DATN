@@ -1,6 +1,12 @@
 <script setup lang="ts">
+
     import { onMounted, ref, computed } from 'vue';
+<<<<<<< HEAD
     import { useRoute, useRouter } from 'vue-router';
+=======
+    import { onMounted, ref } from 'vue';
+    import { useRoute } from 'vue-router';
+>>>>>>> 82a710640a3da49b2fd6566b76e3fff25a76a17c
     import type { Product } from '../stores/product';
 
     const route = useRoute();
@@ -16,6 +22,7 @@
     const handleTabClick = (tab: string) => {
         activeTab.value = tab;
     };
+
 
     // Lọc màu sắc không trùng lặp
     const uniqueColors = computed(() => {
@@ -147,6 +154,19 @@
         }
     };
 
+    const fetchProduct = async () => {
+        try {
+            const response = await fetch(`http://localhost:8000/api/sanpham/${route.params.id}`);
+            const data = await response.json();
+            if (data.status === 'success') {
+                product_store.value = data.data;
+                console.log('Sản phẩm:', product_store.value);
+            }
+        } catch (error) {
+            console.error('Lỗi khi tải sản phẩm:', error);
+        }
+    };
+
     onMounted(() => {
         fetchProduct();
     });
@@ -178,6 +198,7 @@
                                 <strong style="color:var(--accent); font-size: 1.9rem;">{{ product_store.Gia.toLocaleString('vi-VN') }}đ</strong>
                             </p>
                             <div class="d-flex align-items-center gap-2 mt-2 mb-3">
+
                                 <template v-for="star in 5" :key="star">
                                     <i 
                                         class="bi bi-star-fill" 
@@ -185,10 +206,13 @@
                                     ></i>
                                 </template>
                                 <p class="m-0 me-1 fs-3 fw-bold" style="color: var(--colortext1);">{{ product_store.so_sao || 0 }}</p>
+                                <i class="bi bi-star-fill color-star"></i>
+                                <p class="m-0 me-1 fs-3 fw-bold" style="color: var(--colortext1);">{{ product_store.diem_danh_gia || 0 }}</p>
                                 <i class="bi bi-dot fs-2" style="color: var(--colortext2);"></i>
                                 <a href="#" class="m-0 fs-4 fw-regular fst-italic rating-link-view">Đánh giá ({{ product_store.tong_danh_gia || 0 }})</a>
                             </div>
                             <p class="product-desc">{{ product_store.Mo_ta }}</p>
+<<<<<<< HEAD
                             
                             <!-- Thông báo thành công -->
                             <div v-if="addedToCart" class="alert alert-success" role="alert">
@@ -201,6 +225,9 @@
                                 {{ errorMessage }}
                             </div>
                             
+=======
+
+>>>>>>> 82a710640a3da49b2fd6566b76e3fff25a76a17c
                             <template v-if="product_store.san_pham_mau_size && product_store.san_pham_mau_size.length > 0">
                                 <h5 class="mt-4 fs-4">Màu sắc:</h5>
                                 <div class="color-options mt-3">
@@ -228,6 +255,16 @@
                                     >
                                         {{ sizeId }}
                                     </div>
+                            <template v-if="product_store.mau_sac && product_store.mau_sac.length > 0">
+                                <h5 class="mt-4 fs-4">Màu sắc:</h5>
+                                <div class="color-options mt-3">
+                                    <div v-for="(color, index) in product_store.mau_sac" :key="index" :style="{ background: color }"></div>
+                                </div>
+                            </template>
+                            <template v-if="product_store.kich_thuoc && product_store.kich_thuoc.length > 0">
+                                <h5 class="mt-4 fs-4">Size:</h5>
+                                <div class="size-options mt-3">
+                                    <div v-for="(size, index) in product_store.kich_thuoc" :key="index" class="fs-4">{{ size }}</div>
                                 </div>
                             </template>
                             
@@ -254,14 +291,18 @@
                 <ul class="d-flex list-unstyled detail-infor__list">
                     <li 
                         class="detail-infor__desc-rating" 
+
                         :class="{ 'desc-detail__seleted': activeTab == 'description' }"
+                        :class="{ 'desc-detail__seleted': activeTab === 'description' }"
                         @click="handleTabClick('description')"
                     >
                         Mô tả
                     </li>
                     <li 
                         class="detail-infor__desc-rating"
+
                         :class="{ 'desc-detail__seleted': activeTab == 'reviews' }"
+                        :class="{ 'desc-detail__seleted': activeTab === 'reviews' }"
                         @click="handleTabClick('reviews')"
                     >
                         Đánh giá
@@ -654,6 +695,7 @@
             <span class="visually-hidden">Đang tải...</span>
         </div>
     </div>
+
 </template>
 
 <style scoped>
@@ -679,6 +721,7 @@
     border-color: var(--primary);
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
+<<<<<<< HEAD
 
 .size-option {
     padding: 5px 15px;
@@ -730,3 +773,8 @@
     color: #0f3e19;
 }
 </style>
+=======
+</style>
+</template>
+
+>>>>>>> 82a710640a3da49b2fd6566b76e3fff25a76a17c

@@ -14,6 +14,7 @@
             const datas = await response.json();
             if (datas.status == 'success') {
                 product_store.value = datas.data;
+                console.log('Sản phẩm:', product_store.value);
             }
         } catch (error) {
             console.error('Lỗi khi tải sản phẩm:', error);
@@ -35,6 +36,7 @@
             const datas = await response.json();
             if (datas.status == 'success') {
                yard_store.value = datas.data;
+                console.log('Sân:',yard_store.value);
             }
         } catch (error) {
             console.error('Lỗi khi tải sân:', error);
@@ -43,8 +45,6 @@
     onMounted(() => {
         fetchyard();
     });
-
-
 
 </script>
 
@@ -249,6 +249,9 @@
             <div class="row gx-0 mt-2">
                 <template v-if="yard_store.length > 0">
                     <div v-for="yard in yard_store" :key="yard.id" class="col-12 col-lg-3 col-md-6 p-0">
+            <div class="row gx-0 mt-5">
+                <template v-if="yard_store.length > 0">
+                    <div v-for="yard in yard_store.slice(0, 4)" :key="yard.id" class="col-12 col-lg-3 col-md-6 p-0">
                         <div class="yard">
                             <div>
                                 <img :src="'/public/img/san/' + yard.Hinh_anh"  :alt="yard.Ten_san" style="width: 100%;">
@@ -263,6 +266,13 @@
                                         <i class="bi bi-star-fill color-star fs-4"></i>
                                         <i class="bi bi-star-fill color-star fs-4"></i>
                                         <p class="text-rating m-0 ms-3">(4/5)</p>
+                                    <h2 class="m-0 title-yard">{{ yard.Ten_san }}</h2>
+                                    <div class="d-flex align-items-center gap-2 pt-1 pb-2">
+                                        <i v-for="star in 5" :key="star" 
+                                           class="bi bi-star-fill color-star fs-4"
+                                           :class="{'text-warning': star <= (yard.diem_danh_gia ?? 0)}">
+                                        </i>
+                                        <p class="text-rating m-0 ms-3">({{ yard.diem_danh_gia ?? 0 }}/5)</p>
                                     </div>
                                     <div class="d-flex align-items-center gap-2 text-location pt-3 pb-2">
                                         <i class="bi bi-geo-alt"></i>
@@ -271,6 +281,7 @@
                                     <div class="d-flex align-items-center gap-2 text-location">
                                         <i class="bi bi-door-open"></i>
                                         <p class="custom-open m-0">{{ yard.Trang_thai == 1 ? 'Đang mở cửa' : 'Đóng cửa' }}</p>
+                                        <p class="custom-open m-0">{{ yard.Trang_thai === 1 ? 'Đang mở cửa' : 'Đóng cửa' }}</p>
                                     </div>
                                     <a href="#" class="btn-booknow">Đặt ngay</a>
                                 </div>
