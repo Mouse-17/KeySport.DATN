@@ -411,7 +411,7 @@
                         <div class="me-3">
                             <h3 class="aside-title text-white text-start p-4 m-0">HIỂN THỊ THEO</h3>
                             <form @submit.prevent="sortProduct" class="aside-container p-4">
-                                <button type="submit" class="btn btn-primary">Lưu</button>
+                                <!-- <button type="submit" class="btn btn-primary">Lưu</button> -->
                                 <select v-model="sort" class="form-date w-100 mt-2 select-sort">
                                     <option value="Phổ biến">Phổ biến</option>
                                     <option value="Mới nhất">Mới nhất</option>
@@ -734,8 +734,8 @@
                         <div 
                             v-for="size in availableSizes" 
                             :key="size"
-                            class="size-option fs-5" 
-                            :class="{ active: selectedSize === size }"
+                            class="size-option fs-4" 
+                            :class="{ active: selectedSize == size }"
                             @click="selectedSize = size"
                         >
                             {{ size }}

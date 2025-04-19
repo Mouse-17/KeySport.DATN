@@ -18,7 +18,7 @@ class ProductController extends Controller
             // Khởi tạo query builder
             $query = SanPham::join('danh_muc', 'san_pham.ID_Danhmuc', '=', 'danh_muc.id')
             ->join('thuong_hieu', 'san_pham.ID_Thuonghieu', '=', 'thuong_hieu.id')
-            ->join('san_pham_mau_size', 'san_pham.id', '=', 'san_pham_mau_size.ID_SP')
+            // ->join('san_pham_mau_size', 'san_pham.id', '=', 'san_pham_mau_size.ID_SP')
             ->leftJoin('danh_gia', 'san_pham.id', '=', 'danh_gia.ID_SP')
             ->where('san_pham.So_luong', '>', 0)
             ->select(
@@ -178,7 +178,6 @@ class ProductController extends Controller
                     'message' => 'Sản phẩm không tồn tại'
                 ], 404);
             }
-            
             return response()->json([
                 'status' => 'success',
                 'data' => $productdetail
@@ -206,6 +205,18 @@ class ProductController extends Controller
         }
     }
 
-
-
+    public function suggestion(){
+        try {
+            $bestseller = SanPham::where('', '>', 0)->orderBy('bestseller', 'desc')->get();
+            return response()->json([
+                'status' => 'success',
+                'data' => $bestseller
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
 } 
